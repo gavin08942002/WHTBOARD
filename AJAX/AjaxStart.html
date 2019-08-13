@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+       <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#btn_ajax').click(function () {
+                $('#loading').show(); //開始Ajax，顯示讀取中圖片
+                $.ajax({
+                    type: 'POST',
+                    url: 'AjaxHandle.aspx',
+                    data: {
+                                   ID: 'K121421312',
+                                   name: $('#name').val(),
+                                  password: $('#password').val()
+                    },
+                    //data: 'ID=K121421312', //發送參數
+                    success: function (data) {
+                        console.log(data); //輸出結果
+                        $('#div_result').html(data); //將結果呈現在Div裡
+                        $('#loading').hide(); //結束Ajax..關閉讀取中圖片
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $("body").append(xhr.status);
+                        $("body").append(xhr.responseText);
+                        alert("Ajax發生錯誤!!");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" id="btn_ajax" value="StartAjax" />
+    <input id="name" type="textarea" />
+    <input id="password" type="text" />
+<span id="loading" style="display:none;">Loading....</span>
+</body>
+</html>

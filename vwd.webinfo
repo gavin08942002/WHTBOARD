@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<!-- 
+  Visual Studio global web project settings.
+-->
+<VisualWebDeveloper>
+
+  <comReferences>
+    <reference Name="interop.oraoledblib" ID="{0BB9AFD1-51A1-11D2-BB7D-00C04FA30080}\1.0\0"/>
+    <reference Name="interop.mmhodbc_new" ID="{4414284E-22BE-11D5-B763-009027BD30CD}\2.11\0"/>
+  </comReferences>
+</VisualWebDeveloper>

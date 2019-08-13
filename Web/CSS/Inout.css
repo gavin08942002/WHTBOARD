@@ -1,0 +1,26 @@
+﻿#statistic {
+    width:1024px; 
+    height:70px;
+    }
+    #statistic > Div {
+    width:15%; 
+    height:70px; 
+    float:left;  
+    line-height:70px; 
+    text-align:center;
+    }
+.class_statistic_1 {
+   width:40%;
+   height:70%;
+   line-height:50px;
+   text-align:right;
+   float:left;
+}
+.class_statistic_2 {
+   width:60%; 
+   height:70%;
+   line-height:50px;
+   text-align:center;
+   float:left;
+   
+}

@@ -1,0 +1,407 @@
+﻿
+.rltext { /*直書*/
+    -webkit-writing-mode: vertical-rl;
+	
+
+    
+} 
+#Header {
+    width:1860px;
+    height:60px;
+    text-align:center;
+    /*line-height:80px; */
+    font-size:32px;
+    color:#fffaf3;
+    font-weight:bold;
+    margin:0px auto;
+}
+#Head_inside {
+	width:1860px;
+	height:50px;
+	margin: 0px auto;
+}
+.Header_adjustment_right {/*調整header內時間和樓名的對齊方式*/
+    text-align:right
+}
+.Header_adjustment_left {/*調整header內時間和樓名的對齊方式*/
+    text-align:left
+}
+#Time {
+font-size:34px;
+}
+#Body{
+    width:1860px;
+    height:900px;
+    
+    margin:0px auto;
+}
+#Body1{
+    width:600px;
+    height:900px;
+    
+    vertical-align: top;
+	float:left;
+    color:#ffffff
+}
+#Body1-1 {
+    width:600px;
+    height:900px;
+    
+    vertical-align: top;
+	color:#ffffff
+}
+#Body1-2 {
+    width:600px;
+    height:400px;
+    
+    vertical-align: top;
+	color:#77db88;
+    border-top-style:solid;
+    border-top-color:#FAF0E6;
+    border-top-width:2px;
+    }
+#Body2{
+    width:1000px;
+    height:900px;
+    background-color:#fffaf3;
+    float:left;
+}
+#Body3{
+    width:260px;
+    height:900px;
+    
+	float:left;
+    color:#ffffff;
+}
+#Footer{
+    width:1860px;
+    height:100px;
+    text-align:center;
+    color:#000000;
+    font-weight:bold;
+    
+	margin:0px auto;
+    
+}
+.Nurse {/*護士所用資料大框架的格式,護士數>=6時*/
+	height: 100px;
+	width: 600px;
+    text-align:left;
+    border-bottom-style:solid;
+    border-bottom-color:#FAF0E6;
+    border-bottom-width:2px;
+}
+.Nurse_Max {/*護士所用資料大框架的格式,護士數<6時*/
+	height: 150px;
+	width: 600px;
+    text-align:left;
+    border-bottom-style:solid;
+    border-bottom-color:#FAF0E6;
+    border-bottom-width:2px;
+}
+.row_adjust {/*調整.row裡面的參數*/
+    width:360px;
+    height:25px;
+    text-align:left;
+    margin-right:0px;
+    margin-left:0px;
+}
+/*
+    護士病床顯示規格一覽表
+
+
+
+
+
+
+
+    縮小顯示版本
+    */
+
+/*######################九格版本*/
+/*護士佔床顯示*/
+.Nurse_ward {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#333;
+    font-size:35px;
+    font-weight:bold;
+    height:33px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:20%;
+    line-height:32px;
+    background-color:#eece11;
+    font-family:Arial;
+}
+/*護士病床超過16床時的表格顯示*/
+.Nurse_ward4 {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#333;
+    font-size:35px;
+    font-weight:bold;
+    height:25px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:20%;
+    line-height:32px;
+    background-color:#eece11;
+    font-family:Arial;
+}
+
+
+/*######################六格版本*/
+/*護士人數小於6,病床數小於15,佔床病床顯示*/
+.Nurse_ward_5 {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#333;
+    font-size:38px;
+    font-weight:bold;
+    height:49px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:20%;
+    line-height:49px;
+    background-color:#eece11;
+    font-family:Arial;
+}
+/*超過十五床時顯示*/
+.Nurse_ward_6 {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#333;
+    font-size:38px;
+    font-weight:bold;
+    height:37px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:20%;
+    line-height:37px;
+    background-color:#eece11;
+    font-family:Arial;
+}
+/*新竹版 醫生病床 */
+.Nurse_ward_7 {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#333;
+    font-size:30px;
+    font-weight:bold;
+    height:50%;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:12.5%;
+    line-height:30px;
+    background-color:#eece11;
+    font-family:Arial;
+}
+
+
+
+
+/*#####################五碼版本*/
+
+
+/*5碼,護士空床顯示*/
+.Nurse_ward_2 {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#000000;
+    font-size:35px;
+    font-weight:bold;
+    height:33px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:20%;
+    line-height:32px;
+    background-color:#FFF;
+    font-family:Arial;
+}
+/*5碼,護士助理員顯示*/
+.Nurse_ward_3 {
+    left:0px;
+    top:0px;
+    border-color:#1C42D8;
+    color:#333;
+    font-size:25px;
+    font-weight:bold;
+    height:33px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    float:left;
+    width:20%;
+    line-height:32px;
+    background-color:#eece11;
+    font-family:Arial;
+}
+/*New Patient 病床格式*/
+.New_nurse_ward {
+    left:0px;
+    top:0px;
+    border-color:#0094ff;
+    color:#000;
+    font-size:35px;
+    font-weight:bold;
+    height:33px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    background-color:#0094ff;
+    float:left;
+    width:20%;
+    line-height:32px;
+    font-family: Arial;
+    }
+
+
+    .test {
+    
+    left:0px;
+    top:0px;
+    border-color:#0094ff;
+    color:#FAF0E6;
+    font-size:25px;
+    font-weight:bold;
+    height:25px;
+    padding-top:-3px;
+    text-align:center;
+    border-style:groove;
+    border-width:1px;
+    border-radius:10px;
+    background-color:#0094ff;
+    float:left;
+    width:16%;
+    line-height:25px;
+    }
+
+.doctor_ward {/*醫生所顧病床button 顯示*/
+    width:60px; 
+    height:39px; 
+    float:left; 
+    line-height:35px; 
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    border-color:#98890c;
+    border-style:solid;
+    border-radius:15px;
+    background-color:#eece11;
+    border-width:1px;
+    font-family:Arial;
+}
+    .new_doctor_ward {
+    width:60px; 
+    height:39px; 
+    float:left; 
+    line-height:35px; 
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    color:#ffffff;
+    border-color:#98890c;
+    border-style:solid;
+    border-radius:15px;
+    background-color:#0094ff;
+    border-width:1px;
+    font-family:Arial;
+    
+    }
+    .Doctor_title {
+    background-color: #AE7C3F;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFF;
+    border-radius: 10px;
+    vertical-align: middle;
+    line-height: 50px;
+    width:125px; 
+    height:60px;
+    line-height:50px;
+}
+        .Doctor_title2 {
+    background-color: #0094FF;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    border-radius: 10px;
+    vertical-align: middle;
+    line-height: 50px;
+    width:125px; 
+    height:60px;
+    line-height:50px;
+}
+    .Numeric-font {
+    font-family:Arial;
+    font-weight:700;
+    
+}
+    .centered{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%); 
+}
+
+.neon-effect{
+  color:#fff;
+  letter-spacing:1px;
+    text-shadow:
+    0 0 1px rgba(67,232,216, 1),
+    0 0 2px rgba(67,232,216, 1),
+    0 0 3px rgba(67,232,216, 1),
+    0 0 4px rgba(67,232,216, 1);
+  animation:neon-shine 2s linear infinite;
+}
+
+
+
+@keyframes neon-shine{
+  0%{opacity:1;
+     color:silver;
+  }
+  90%{opacity:1;}
+  100%{color:black;}
+  
+}  
+
+
+
