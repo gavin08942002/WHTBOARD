@@ -928,24 +928,27 @@ Partial Class Station
                                     End If
 
                                     If i < Bed_Count Then '控制所要顯示的病床數
+
+                                        '判斷是否要閃爍文字
                                         Dim front As String = Nothing
                                         Dim back As String = Nothing
-                                        If cauti_List.Contains(Right(DVTable.Rows(i)("Bedno").ToString, Bedwordcount)) Then
-
+                                        If cauti_List.Contains(Right(DVTable.Rows(i)("Bedno").ToString, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
                                             front = "<span class=""neon-effect"">"
                                             back = "</span>"
                                         End If
+
+
                                         '已完成交班,深藍底白字
-                                        If Handover_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
+                                        If Handover_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
                                             BedList &= String.Format("<div class="" Nurse_ward "" style ="" font-size:{0}px; line-height:32px;background-color:rgb(0,0,255);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '急診新進病人30-60分,粉紅底白字
-                                        ElseIf During3060m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
+                                        ElseIf During3060m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
                                             BedList &= String.Format("<div class="" Nurse_ward "" style ="" font-size:{0}px; line-height:32px;background-color:rgb(255,140,255);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '急診新進病人60-90分,紅底白字
-                                        ElseIf During6090m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
+                                        ElseIf During6090m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
                                             BedList &= String.Format("<div class="" Nurse_ward "" style ="" font-size:{0}px; line-height:32px;background-color:rgb(255,0,0);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '急診新進病人90分以上,紫底白字
-                                        ElseIf UP90m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
+                                        ElseIf UP90m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
                                             BedList &= String.Format("<div class="" Nurse_ward "" style ="" font-size:{0}px; line-height:32px;background-color:rgb(145,21,162);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '判斷是否為急診新進病患,如為變更框架為綠底黑字(白字)
                                         ElseIf ERBed_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
@@ -973,29 +976,34 @@ Partial Class Station
                                     If i < Bed_Count Then '控制所要顯示的病床數
                                         bedfontsize = 30
 
+                                        '判斷是否要閃爍文字
+                                        Dim front As String = Nothing
+                                        Dim back As String = Nothing
+                                        If cauti_List.Contains(Right(DVTable.Rows(i)("Bedno").ToString, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
+                                            front = "<span class=""neon-effect"">"
+                                            back = "</span>"
+                                        End If
+
 
                                         '已完成交班,深藍底白字
-                                        If Handover_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) Then
-                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(0,0,255);color:white; "">{1}</div>", bedfontsize, Right(BedNo, Bedwordcount))
+                                        If Handover_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
+                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(0,0,255);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '急診新進病人30-60分,粉紅底白字
-                                        ElseIf During3060m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) Then
-                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(255,140,255);color:white; "">{1}</div>", bedfontsize, Right(BedNo, Bedwordcount))
+                                        ElseIf During3060m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
+                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(255,140,255);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '急診新進病人60-90分,紅底白字
-                                        ElseIf During6090m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) Then
-                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(255,0,0);color:white; "">{1}</div>", bedfontsize, Right(BedNo, Bedwordcount))
+                                        ElseIf During6090m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
+                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(255,0,0);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '急診新進病人90分以上,紫底白字
-                                        ElseIf UP90m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) And TestStation.Contains(Wardcode) Then
-                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(145,21,162);color:white; "">{1}</div>", bedfontsize, Right(BedNo, Bedwordcount))
+                                        ElseIf UP90m_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
+                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(145,21,162);color:white; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                             '判斷是否為急診病患,如為變更框架為綠底黑字
                                             '綠底黑字
                                         ElseIf ERBed_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
-                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(0,221,0); "">{1}</div>", bedfontsize, Right(BedNo, Bedwordcount))
-
-
-
-
-                                        ElseIf InBed_List.Contains(Right(BedNo, Bedwordcount)) Or BedNo = "書記" Or BedNo = "服務" Or BedNo = "組長" Or BedNo = "行政" Then '判斷是否佔床
-                                            BedList &= String.Format("<div class=""Nurse_ward4"" style ="" font-size:{0}px; line-height:25px; left:0px;top:0px;border-color:#1C42D8;color:#333;font-weight:bold;height:24.5px;padding-top:-3px;text-align:center;border-style:groove;border-width:1px;border-radius:10px;float:left;width:20%;background-color:#eece11;font-family:Arial; "">{1}</div>", bedfontsize, Right(BedNo, Bedwordcount))
+                                            BedList &= String.Format("<div class="" Nurse_ward4 "" style ="" font-size:{0}px; line-height:25px;height:24.5px;background-color:rgb(0,221,0); "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
+                                            '判斷是否佔床和書記、服務、組長、行政
+                                        ElseIf InBed_List.Contains(Right(BedNo, Bedwordcount)) Or BedNo = "書記" Or BedNo = "服務" Or BedNo = "組長" Or BedNo = "行政" Then
+                                            BedList &= String.Format("<div class=""Nurse_ward4"" style ="" font-size:{0}px; line-height:25px; left:0px;top:0px;border-color:#1C42D8;color:#333;font-weight:bold;height:24.5px;padding-top:-3px;text-align:center;border-style:groove;border-width:1px;border-radius:10px;float:left;width:20%;background-color:#eece11;font-family:Arial; "">{1}{2}{3}</div>", bedfontsize, front, Right(BedNo, Bedwordcount), back)
                                         ElseIf BedNo = "助理員" Then '助理員時縮小字型
                                             BedList &= String.Format("<div class=""Nurse_ward4"" style ="" font-size:23px; line-height:25px;  left:0px;top:0px;border-color:#1C42D8;color:#333;font-weight:bold;height:24.5px;padding-top:-3px;text-align:center;border-style:groove;border-width:1px;border-radius:10px;float:left;width:20%;background-color:#eece11;font-family:Arial;"">{0}</div>", BedNo)
                                         Else   '顯示空床,黑底白字
