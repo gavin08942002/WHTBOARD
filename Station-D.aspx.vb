@@ -780,7 +780,8 @@ Partial Class Station
         DS.Tables("BedList").Merge(DS.Tables("H_BedList")) '合併病床和H班病床資料
 
         '尿管移除提示資料名單(以字體閃鑠表示)
-        Dim H_cmd3 As String = String.Format("select bedns,bedno,bedpno,bedcaseno from bedtbl A, cauti B where a.bedpno = b.pno And a.bedcaseno = b.caseno And a.bedsts > 0 and b.show_msg='Y' and trunc(msg_bdate)=trunc(sysdate)  and a.bedns = '{0}'  order by bedns,bedno,bedpno", Wardcode)
+        'Dim H_cmd3 As String = String.Format("select bedns,bedno,bedpno,bedcaseno from bedtbl A, cauti B where a.bedpno = b.pno And a.bedcaseno = b.caseno And a.bedsts > 0 and b.show_msg='Y' and trunc(msg_bdate)=trunc(sysdate)  and a.bedns = '{0}'  order by bedns,bedno,bedpno", Wardcode)
+        Dim H_cmd3 As String = String.Format("select bedns,bedno,bedpno,bedcaseno,msg_bdate,rdate from bedtbl A, cauti B left join cautidly C on b.pno=c.pno and b.ordlinkno=c.ordlinkno where a.bedpno = b.pno And a.bedcaseno = b.caseno And a.bedsts > 0 and b.show_msg='Y' and a.bedns='{0}' and trunc(rdate)=trunc(sysdate) order by bedns,bedno,bedpno,rdate ", Wardcode)
         Dim H_DA3 As OleDbDataAdapter = New OleDbDataAdapter(H_cmd3, Conn)
         H_DA3.Fill(DS, "H_BedCauti")
         Dim cauti_List As ArrayList = New ArrayList
