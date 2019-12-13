@@ -366,10 +366,10 @@ Partial Class Station
 
         '佔床率
         Dim Take_up_rate As Single = (All_bed - Empty_bed) / All_bed
-
-        LightLabel.Text = Light
-        MediumLabel.Text = Medium
-        HeaveyLabel.Text = Heavey
+        '輕中重未交班顯示取消20191213
+        'LightLabel.Text = Light
+        'MediumLabel.Text = Medium
+        'HeaveyLabel.Text = Heavey
         Take_up_rate_Label.Text = Take_up_rate.ToString("P0")
         Empty_Bed_Label.Text = Empty_bed
         All_bed_Label.Text = All_bed
@@ -2096,7 +2096,6 @@ Partial Class Station
             '中度顯示
             If DTR_LIST.Contains(EMPNO4) And DTR_LIST_2.Contains(EMPNO4_1) And Not String.IsNullOrEmpty(EMPNO4_1) Then
                 EMPNO4_1_color = "<img src=""Images/Medium.png"" style="" height:35px;width:35px;"" />"
-                ' Response.Write("test")
             End If
             '重度顯示
             If DTR_LIST.Contains(EMPNO4) And DTR_LIST_3.Contains(EMPNO4_1) And Not String.IsNullOrEmpty(EMPNO4_1) Then
@@ -2227,10 +2226,11 @@ Partial Class Station
         Contact_List(HospCode, WardCode, 12) '列出連絡人資料
         Encoding_type("劉瑩", 36) '判斷是否有外字,將外字的字型設定為指定大小後回傳
 
-        URL_Change_Label.Text = String.Format("<a href=""station-D.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">輕</a><br>", HospCode, WardCode)
-        URL_Reset_Label.Text = String.Format("<a href=""station.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">中</a><br>", HospCode, WardCode)
+        '輕中重顯示取消20191213
+        'URL_Change_Label.Text = String.Format("<a href=""station-N.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">輕</a><br>", HospCode, WardCode)
+        'URL_Reset_Label.Text = String.Format("<a href=""station.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">中</a><br>", HospCode, WardCode)
+        '測試
 
-        'UpdateTimeLabel.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") '顯示更新時間
         ISBARREC_RECVING_ALL(HospCode, WardCode, 830, 1000, Now_Time)
 
 

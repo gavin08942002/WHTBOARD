@@ -52,33 +52,32 @@
                      </div>
                      <div style= "float:left; height:60px; width:900px; text-align:left;font-size:40px;line-height:60px;" >
                          <div style=" width:100px;height:60px;float:left;">
+<!--
                              <div style=" width:50px;height:60px;float:left;"><asp:Label ID="URL_Change_Label" runat="server" Text=""></asp:Label></div>
                              <div style=" width:50px;height:60px;float:left;background-color:rgb(155, 187, 89);color:black;text-align:center;">
-
                                  <asp:Label ID="LightLabel" runat="server" Text="0"></asp:Label>
                              </div>
+-->  
                          </div>
                          <div style=" width:100px;height:60px;float:left;">
-                             <div style=" width:50px;height:60px;float:left;"><asp:Label ID="URL_Reset_Label" runat="server" Text="Label"></asp:Label></div>
+<!--
+                             <div style=" width:50px;height:60px;float:left;"><asp:Label ID="URL_Reset_Label" runat="server" Text=""></asp:Label></div>
                              <div style=" width:50px;height:60px;float:left;background-color:yellow;color:black;text-align:center;">
-
                                  <asp:Label ID="MediumLabel" runat="server" Text="0"></asp:Label>
                              </div>
+-->
                          </div>
                          <div style=" width:100px;height:60px;float:left;">
+<!-- 
                              <div style=" width:50px;height:60px;float:left;">重</div>
                              <div style=" width:50px;height:60px;float:left;background-color:rgb(255, 51, 51);color:black;text-align:center;">
-
                                  <asp:Label ID="HeaveyLabel" runat="server" Text="0"></asp:Label>
                              </div>
+-->
                          </div>
-                         
-
                          <div style=" width:200px;height:60px;float:left;">
-                                
                                 <div style=" width:100px;height:60px;float:left;font-size:30px;">佔床率</div>
                                <div style=" width:100px;height:60px;float:left;background-color:#FFFFFF;color:#000;text-align:center;">
-
                                    <asp:Label ID="Take_up_rate_Label" runat="server" Text="Label"></asp:Label>
                                </div>
                          </div>
@@ -183,7 +182,7 @@
                 <asp:Label ID="ContactListLabel" runat="server"></asp:Label>
             </div>
         </div>
-                <div id ="Footer">
+        <div id ="Footer">
              <div style="height:100px; width:1860px;background-color:#FFFFFF;border-radius:50px;">
                  <div style = "width:50px; height:100px; float:left;">
                      
@@ -237,6 +236,7 @@
                              </div>
                   </div> 
              </div>
+          
         </div>
 
            <asp:GridView ID="GridView1" runat="server"></asp:GridView>

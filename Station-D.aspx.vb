@@ -414,10 +414,10 @@ Partial Class Station
 
         '佔床率
         Dim Take_up_rate As Single = (All_bed - Empty_bed) / All_bed
-
-        LightLabel.Text = Light
-        MediumLabel.Text = Medium
-        HeaveyLabel.Text = Heavey
+        '輕中重未交班顯示取消20191213
+        'LightLabel.Text = Light
+        'MediumLabel.Text = Medium
+        'HeaveyLabel.Text = Heavey
         Take_up_rate_Label.Text = Take_up_rate.ToString("P0")
         Empty_Bed_Label.Text = Empty_bed
         All_bed_Label.Text = All_bed
@@ -589,7 +589,7 @@ Partial Class Station
         cmd_state &= " AND i.SEVERITY = '3'"
         cmd_state &= String.Format(" and i.BEDNS= '{0}' ", Wardcode)
         cmd_state &= String.Format(" And i.DLINE >= To_Date('{0}','yyyy/MM/DD')", Nowdate)
-        cmd_state &= " Order By Recdate,Bedno" '
+        cmd_state &= " Order By Recdate,Bedno"
         Dim DA_state As OleDbDataAdapter = New OleDbDataAdapter(cmd_state, Conn)
         Dim DT_state As DataTable = New DataTable
         DA_state.Fill(DT_state)
@@ -1570,8 +1570,10 @@ Partial Class Station
 
         Dim TITLE2 As String = "值班<BR>醫師"
         Dim EMPNO2 As String = Nothing
+        Dim CLASS2 As String = Nothing
         Dim NAME2 As String = Nothing
         Dim EMPNO2_1 As String = Nothing
+        Dim CLASS2_1 As String = Nothing
         Dim NAME2_1 As String = Nothing
 
         Dim TITLE3 As String = "昨日<BR>總值"
@@ -1582,8 +1584,10 @@ Partial Class Station
 
         Dim TITLE4 As String = "昨日<BR>值班"
         Dim EMPNO4 As String = Nothing
+        Dim CLASS4 As String = Nothing
         Dim NAME4 As String = Nothing
         Dim EMPNO4_1 As String = Nothing
+        Dim CLASS4_1 As String = Nothing
         Dim NAME4_1 As String = Nothing
 
 
@@ -1637,15 +1641,16 @@ Partial Class Station
 
         '第二格資料值班醫師處理
         Dim cmd2 As String = Nothing
-        cmd2 &= "select A.hospid, B.dept as deptcode  , C.cname1 , A.drcode , B.name ,"
-        cmd2 &= " E.group1 , E.code as phone , DECODE(B.CLASS,'XX',DECODE(SUBSTR(B.CODE,1,1),'Z','INT','PGY'),B.CLASS) as CLASS , "
+        cmd2 &= "select A.hospid, B.dept as deptcode  , C.cname1 , A.drcode , B.name , "
+        cmd2 &= " E.group1 , E.code as phone ,B.CLASS, DECODE(B.CLASS,'XX',DECODE(SUBSTR(B.CODE,1,1),'Z','INT','PGY'),B.CLASS) as DCLASS ,P.tposit as PSN_CLASS, "
         cmd2 &= " C.master, A.shift , D.location, A.schdate, A.master as Amaster"
-        cmd2 &= " from  inpdrsch A , dr B , dept C , drschloc D  , phsdb E"
+        cmd2 &= " from  inpdrsch A , dr B , dept C , drschloc D  , phsdb E, psn_duty P"
         cmd2 &= " where A.drcode = B.code "
         cmd2 &= "  and C.code = B.dept"
         cmd2 &= " and  A.shift = D.shift  and A.sch_type = 'S' "
         cmd2 &= " and E.EMPNO(+)  = A.DRCODE    "
         cmd2 &= " and (a.dept = d.dept OR a.master = d.dept)"
+        cmd2 &= " and B.code (+)= P.empno"
         'cmd2 &= String.Format("and A.HospID = '{0}'", Hospcode)
         cmd2 &= String.Format(" and D.hosp_use like '%{0}%'", Hospcode)
         ' cmd2 &= String.Format(" and (D.location = '{0}' ) and D.dept = A.master ", Wardcode)
@@ -1656,7 +1661,6 @@ Partial Class Station
         cmd2 &= " and D.edate >=  ( select sysdate from dual  ) "
         ' cmd2 &= " and B.CLASS <> 'XX'"   '排除INT 或PGY
         cmd2 &= " and SUBSTR(B.code,1,1) not like 'Z' " '排除INT
-        '新增排除drschloc 歷史資料
         cmd2 &= String.Format("and A.shift not in(   select  shift from drschloc where location = '總值'   and dept in ('{0}') and bdate <= ( select sysdate from dual  ) and edate >=  ( select sysdate from dual  )     ) ", Master) '排除兒科總值和值班醫師重複的情形
         cmd2 &= " order by C.master"
         Dim DA2 As OleDbDataAdapter = New OleDbDataAdapter(cmd2, Conn)
@@ -1671,10 +1675,12 @@ Partial Class Station
         If Dept_List_DT2.Rows.Count > 0 Then
             If Dept_List_DT2.Rows.Count >= 1 Then
                 EMPNO2 = Dept_List_DT2.Rows(0)("DRCODE").ToString
+                CLASS2 = Dept_List_DT2.Rows(0)("PSN_CLASS").ToString
                 NAME2 = Dept_List_DT2.Rows(0)("NAME").ToString
             End If
             If Dept_List_DT2.Rows.Count >= 2 Then
                 EMPNO2_1 = Dept_List_DT2.Rows(1)("DRCODE").ToString
+                CLASS2_1 = Dept_List_DT2.Rows(1)("PSN_CLASS").ToString
                 NAME2_1 = Dept_List_DT2.Rows(1)("NAME").ToString
             End If
         End If
@@ -1715,14 +1721,15 @@ Partial Class Station
         'GridView1.DataBind()
         '第四格資料昨日值班處理
         Dim cmd4 As String = Nothing
-        cmd4 &= "select A.hospid, B.dept as deptcode  , C.cname1 , A.drcode , B.name ,"
-        cmd4 &= " E.group1 , E.code as phone , DECODE(B.CLASS,'XX',DECODE(SUBSTR(B.CODE,1,1),'Z','INT','PGY'),B.CLASS) as CLASS , "
+        cmd4 &= "select A.hospid, B.dept as deptcode  , C.cname1 , A.drcode , B.name ,B.class as trueclass, "
+        cmd4 &= " E.group1 , E.code as phone ,B.CLASS, DECODE(B.CLASS,'XX',DECODE(SUBSTR(B.CODE,1,1),'Z','INT','PGY'),B.CLASS) as DCLASS, P.tposit as PSN_CLASS, "
         cmd4 &= " C.master, A.shift , D.location, A.schdate, A.master as Amaster"
-        cmd4 &= " from  inpdrsch A , dr B , dept C , drschloc D  , phsdb E"
+        cmd4 &= " from  inpdrsch A , dr B , dept C , drschloc D  , phsdb E, psn_duty P"
         cmd4 &= " where A.drcode = B.code and C.code = B.dept"
         cmd4 &= " and  A.shift = D.shift  and A.sch_type = 'S' "
         cmd4 &= " and E.EMPNO(+)  = A.DRCODE    "
         cmd4 &= " and (a.dept = d.dept OR a.master = d.dept)"
+        cmd4 &= " and B.code (+)= P.empno"
         'cmd4 &= String.Format("and A.HospID = '{0}'", Hospcode)
         cmd4 &= String.Format(" and D.hosp_use like '%{0}%'", Hospcode)
         cmd4 &= String.Format(" and D.location = '{0}'  ", Wardcode)
@@ -1737,15 +1744,19 @@ Partial Class Station
         Dim DA4 As OleDbDataAdapter = New OleDbDataAdapter(cmd4, Conn)
         Dim Dept_List_DT4 As DataTable = New DataTable
         DA4.Fill(Dept_List_DT4)
+        'GridView1.DataSource = Dept_List_DT4
+        'GridView1.DataBind()
 
         '第四格資料寫入變數
         If Dept_List_DT4.Rows.Count > 0 Then
             If Dept_List_DT4.Rows.Count >= 1 Then
                 EMPNO4 = Dept_List_DT4.Rows(0)("DRCODE").ToString
+                CLASS4 = Dept_List_DT4.Rows(0)("PSN_CLASS").ToString
                 NAME4 = Dept_List_DT4.Rows(0)("NAME").ToString
             End If
             If Dept_List_DT4.Rows.Count >= 2 Then
                 EMPNO4_1 = Dept_List_DT4.Rows(1)("DRCODE").ToString
+                CLASS4_1 = Dept_List_DT4.Rows(1)("PSN_CLASS").ToString
                 NAME4_1 = Dept_List_DT4.Rows(1)("NAME").ToString
             End If
         End If
@@ -1759,8 +1770,10 @@ Partial Class Station
         DUTY_T.Columns.Add("NAME1_1")
         DUTY_T.Columns.Add("TITLE2")
         DUTY_T.Columns.Add("EMPNO2")
+        DUTY_T.Columns.Add("CLASS2")
         DUTY_T.Columns.Add("NAME2")
         DUTY_T.Columns.Add("EMPNO2_1")
+        DUTY_T.Columns.Add("CLASS2_1")
         DUTY_T.Columns.Add("NAME2_1")
         DUTY_T.Columns.Add("TITLE3")
         DUTY_T.Columns.Add("EMPNO3")
@@ -1769,8 +1782,10 @@ Partial Class Station
         DUTY_T.Columns.Add("NAME3_1")
         DUTY_T.Columns.Add("TITLE4")
         DUTY_T.Columns.Add("EMPNO4")
+        DUTY_T.Columns.Add("CLASS4")
         DUTY_T.Columns.Add("NAME4")
         DUTY_T.Columns.Add("EMPNO4_1")
+        DUTY_T.Columns.Add("CLASS4_1")
         DUTY_T.Columns.Add("NAME4_1")
 
         '將要顯示的資料放入最後顯示TABLE中
@@ -1783,8 +1798,12 @@ Partial Class Station
 
         DUTY_R("TITLE2") = TITLE2
         DUTY_R("EMPNO2") = EMPNO2
+        DUTY_R("CLASS2") = CLASS2
+
         DUTY_R("NAME2") = NAME2
         DUTY_R("EMPNO2_1") = EMPNO2_1
+        DUTY_R("CLASS2_1") = CLASS2_1
+
         DUTY_R("NAME2_1") = NAME2_1
 
         DUTY_R("TITLE3") = TITLE3
@@ -1792,11 +1811,12 @@ Partial Class Station
         DUTY_R("NAME3") = NAME3
         DUTY_R("EMPNO3_1") = EMPNO3_1
         DUTY_R("NAME3_1") = NAME3_1
-
         DUTY_R("TITLE4") = TITLE4
         DUTY_R("EMPNO4") = EMPNO4
+        DUTY_R("CLASS4") = CLASS4
         DUTY_R("NAME4") = NAME4
         DUTY_R("EMPNO4_1") = EMPNO4_1
+        DUTY_R("CLASS4_1") = CLASS4_1
         DUTY_R("NAME4_1") = NAME4_1
 
         DUTY_T.Rows.Add(DUTY_R)
@@ -1824,14 +1844,14 @@ Partial Class Station
         'Response.Write(DTR_LIST_1(0))
         'Response.Write(DTR_LIST_2(0))
         'Response.Write(DTR_LIST_3(0))
-
+        '醫師的名字前面加上輕中重未交班提示圖示
         Dim EMPNO_SHOW_1 As String = Nothing '第一格顯示資料
         Dim EMPNO_SHOW_2 As String = Nothing '第二格顯示資料
         Dim EMPNO_SHOW_3 As String = Nothing '第三格顯示資料
         Dim EMPNO_SHOW_4 As String = Nothing '第四格顯示資料
 
         If OndutyDoctor_T.Rows.Count > 0 Then
-
+            '第一格輕中重提示顯示
             Dim TITLE1 As String = OndutyDoctor_T.Rows(0)("TITLE1").ToString
             Dim EMPNO1 As String = OndutyDoctor_T.Rows(0)("EMPNO1").ToString
             Dim NAME1 As String = OndutyDoctor_T.Rows(0)("NAME1").ToString
@@ -1866,11 +1886,14 @@ Partial Class Station
 
 
 
-
+            '第二格輕中重提示顯示
             Dim TITLE2 As String = OndutyDoctor_T.Rows(0)("TITLE2").ToString
             Dim EMPNO2 As String = OndutyDoctor_T.Rows(0)("EMPNO2").ToString
             Dim NAME2 As String = OndutyDoctor_T.Rows(0)("NAME2").ToString
+            Dim CLASS2 As String = OndutyDoctor_T.Rows(0)("CLASS2").ToString
+            Dim CLASS2_1 As String = OndutyDoctor_T.Rows(0)("CLASS2_1").ToString
             Dim EMPNO2_color As String = ""
+            '
             '輕度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_1.Contains(EMPNO2) And Not String.IsNullOrEmpty(EMPNO2) Then
                 EMPNO2_color = "<img src=""Images/Light.png"" style="" height:35px;width:35px;"" />"
@@ -1878,12 +1901,12 @@ Partial Class Station
             '中度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_2.Contains(EMPNO2) And Not String.IsNullOrEmpty(EMPNO2) Then
                 EMPNO2_color = "<img src=""Images/Medium.png"" style="" height:35px;width:35px;"" />"
-                ' Response.Write("test")
             End If
             '重度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_3.Contains(EMPNO2) And Not String.IsNullOrEmpty(EMPNO2) Then
                 EMPNO2_color = "<img src=""Images/Heavy.png"" style="" height:35px;width:35px;"" />"
             End If
+
             Dim EMPNO2_1 As String = OndutyDoctor_T.Rows(0)("EMPNO2_1").ToString
             Dim NAME2_1 As String = OndutyDoctor_T.Rows(0)("NAME2_1").ToString
             Dim EMPNO2_1_color As String = ""
@@ -1900,7 +1923,20 @@ Partial Class Station
                 EMPNO2_1_color = "<img src=""Images/Heavy.png"" style="" height:35px;width:35px;"" />"
             End If
 
+            '第二格醫生級職PGY1以藍色顯示
+            If CLASS2 = "PGY1" Then
+                EMPNO2 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO2)
+                NAME2 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME2)
+            End If
+            If CLASS2_1 = "PGY1" Then
+                EMPNO2_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO2_1)
+                NAME2_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME2_1)
+            End If
 
+
+
+
+            '第三格輕中重提示顯示
             Dim TITLE3 As String = OndutyDoctor_T.Rows(0)("TITLE3").ToString
             Dim EMPNO3 As String = OndutyDoctor_T.Rows(0)("EMPNO3").ToString
             Dim NAME3 As String = OndutyDoctor_T.Rows(0)("NAME3").ToString
@@ -1912,7 +1948,7 @@ Partial Class Station
             '中度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_2.Contains(EMPNO3) And Not String.IsNullOrEmpty(EMPNO3) Then
                 EMPNO3_color = "<img src=""Images/Medium.png"" style="" height:35px;width:35px;"" />"
-                ' Response.Write("test")
+
             End If
             '重度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_3.Contains(EMPNO3) And Not String.IsNullOrEmpty(EMPNO3) Then
@@ -1928,7 +1964,6 @@ Partial Class Station
             '中度顯示
             If DTR_LIST.Contains(EMPNO3_1) And DTR_LIST_2.Contains(EMPNO3_1) And Not String.IsNullOrEmpty(EMPNO3_1) Then
                 EMPNO3_1_color = "<img src=""Images/Medium.png"" style="" height:35px;width:35px;"" />"
-                ' Response.Write("test")
             End If
             '重度顯示
             If DTR_LIST.Contains(EMPNO3_1) And DTR_LIST_3.Contains(EMPNO3_1) And Not String.IsNullOrEmpty(EMPNO3_1) Then
@@ -1953,9 +1988,13 @@ Partial Class Station
             If DTR_LIST.Contains(EMPNO4) And DTR_LIST_3.Contains(EMPNO4) And Not String.IsNullOrEmpty(EMPNO4) Then
                 EMPNO4_color = "<img src=""Images/Heavy.png"" style="" height:35px;width:35px;"" />"
             End If
+
+            '第四格輕中重提示顯示
             Dim EMPNO4_1 As String = OndutyDoctor_T.Rows(0)("EMPNO4_1").ToString
             Dim NAME4_1 As String = OndutyDoctor_T.Rows(0)("NAME4_1").ToString
             Dim EMPNO4_1_color As String = ""
+            Dim CLASS4 As String = OndutyDoctor_T.Rows(0)("CLASS4").ToString
+            Dim CLASS4_1 As String = OndutyDoctor_T.Rows(0)("CLASS4_1").ToString
             '輕度顯示
             If DTR_LIST.Contains(EMPNO4) And DTR_LIST_1.Contains(EMPNO4_1) And Not String.IsNullOrEmpty(EMPNO4_1) Then
                 EMPNO4_1_color = "<img src=""Images/Light.png"" style="" height:35px;width:35px;"" />"
@@ -1968,6 +2007,15 @@ Partial Class Station
             '重度顯示
             If DTR_LIST.Contains(EMPNO4) And DTR_LIST_3.Contains(EMPNO4_1) And Not String.IsNullOrEmpty(EMPNO4_1) Then
                 EMPNO4_1_color = "<img src=""Images/Heavy.png"" style="" height:35px;width:35px;"" />"
+            End If
+            '第二格醫生級職PGY1以藍色顯示
+            If CLASS4 = "PGY1" Then
+                EMPNO4 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO4)
+                NAME4 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME4)
+            End If
+            If CLASS4_1 = "PGY1" Then
+                EMPNO4_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO4_1)
+                NAME4_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME4_1)
             End If
 
 
@@ -2100,9 +2148,9 @@ Partial Class Station
         OnDutyDoctor(HospCode, WardCode, Now_Time) ' 顯示醫師值班資料
         Contact_List(HospCode, WardCode, 12) '列出連絡人資料
         Encoding_type("劉瑩", 36) '判斷是否有外字,將外字的字型設定為指定大小後回傳
-
-        URL_Change_Label.Text = String.Format("<a href=""station-N.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">輕</a><br>", HospCode, WardCode)
-        URL_Reset_Label.Text = String.Format("<a href=""station.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">中</a><br>", HospCode, WardCode)
+        '輕中重顯示取消20191213
+        'URL_Change_Label.Text = String.Format("<a href=""station-N.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">輕</a><br>", HospCode, WardCode)
+        'URL_Reset_Label.Text = String.Format("<a href=""station.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">中</a><br>", HospCode, WardCode)
         '測試
 
     End Sub
