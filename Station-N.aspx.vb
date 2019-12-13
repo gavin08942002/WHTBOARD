@@ -302,7 +302,7 @@ Partial Class Station
 
     End Sub
     '==輕中重以未交班顯示isbarrec
-    Sub Show_Statistics_2(ByVal Hospcode As String, ByVal Wardcode As String, ByVal Now_Time As DateTime)
+    Sub Show_Statistics_2(ByVal Hospcode As String, ByVal Wardcode As String, ByVal Now_Time As  DateTime)
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         Dim Conn As OleDbConnection = New OleDbConnection
         Conn.ConnectionString = ConnStr
@@ -366,10 +366,9 @@ Partial Class Station
 
         '佔床率
         Dim Take_up_rate As Single = (All_bed - Empty_bed) / All_bed
-        '輕中重未交班顯示取消20191213
-        'LightLabel.Text = Light
-        'MediumLabel.Text = Medium
-        'HeaveyLabel.Text = Heavey
+        LightLabel.Text = Light
+        MediumLabel.Text = Medium
+        HeaveyLabel.Text = Heavey
         Take_up_rate_Label.Text = Take_up_rate.ToString("P0")
         Empty_Bed_Label.Text = Empty_bed
         All_bed_Label.Text = All_bed

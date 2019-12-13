@@ -414,10 +414,9 @@ Partial Class Station
 
         '佔床率
         Dim Take_up_rate As Single = (All_bed - Empty_bed) / All_bed
-        '輕中重未交班顯示取消20191213
-        'LightLabel.Text = Light
-        'MediumLabel.Text = Medium
-        'HeaveyLabel.Text = Heavey
+        LightLabel.Text = Light
+        MediumLabel.Text = Medium
+        HeaveyLabel.Text = Heavey
         Take_up_rate_Label.Text = Take_up_rate.ToString("P0")
         Empty_Bed_Label.Text = Empty_bed
         All_bed_Label.Text = All_bed
@@ -1571,9 +1570,11 @@ Partial Class Station
         Dim TITLE2 As String = "值班<BR>醫師"
         Dim EMPNO2 As String = Nothing
         Dim CLASS2 As String = Nothing
+        Dim PSN_CLASS2 As String = Nothing
         Dim NAME2 As String = Nothing
         Dim EMPNO2_1 As String = Nothing
         Dim CLASS2_1 As String = Nothing
+        Dim PSN_CLASS2_1 As String = Nothing
         Dim NAME2_1 As String = Nothing
 
         Dim TITLE3 As String = "昨日<BR>總值"
@@ -2148,9 +2149,8 @@ Partial Class Station
         OnDutyDoctor(HospCode, WardCode, Now_Time) ' 顯示醫師值班資料
         Contact_List(HospCode, WardCode, 12) '列出連絡人資料
         Encoding_type("劉瑩", 36) '判斷是否有外字,將外字的字型設定為指定大小後回傳
-        '輕中重顯示取消20191213
-        'URL_Change_Label.Text = String.Format("<a href=""station-N.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">輕</a><br>", HospCode, WardCode)
-        'URL_Reset_Label.Text = String.Format("<a href=""station.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">中</a><br>", HospCode, WardCode)
+        URL_Change_Label.Text = String.Format("<a href=""station-N.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">輕</a><br>", HospCode, WardCode)
+        URL_Reset_Label.Text = String.Format("<a href=""station.aspx?Hospcode={0}&Wardcode={1}"" target=""_self"" style =""color:white;"">中</a><br>", HospCode, WardCode)
         '測試
 
     End Sub
