@@ -1926,12 +1926,12 @@ Partial Class Station
 
             '第二格醫生級職PGY1以藍色顯示
             If CLASS2 = "PGY1" Then
-                EMPNO2 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO2)
-                NAME2 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME2)
+                EMPNO2 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", EMPNO2)
+                NAME2 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", NAME2)
             End If
             If CLASS2_1 = "PGY1" Then
-                EMPNO2_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO2_1)
-                NAME2_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME2_1)
+                EMPNO2_1 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", EMPNO2_1)
+                NAME2_1 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", NAME2_1)
             End If
 
 
@@ -2009,14 +2009,14 @@ Partial Class Station
             If DTR_LIST.Contains(EMPNO4) And DTR_LIST_3.Contains(EMPNO4_1) And Not String.IsNullOrEmpty(EMPNO4_1) Then
                 EMPNO4_1_color = "<img src=""Images/Heavy.png"" style="" height:35px;width:35px;"" />"
             End If
-            '第二格醫生級職PGY1以藍色顯示
+            '第四格醫生級職PGY1以藍色顯示
             If CLASS4 = "PGY1" Then
-                EMPNO4 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO4)
-                NAME4 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME4)
+                EMPNO4 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", EMPNO4)
+                NAME4 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", NAME4)
             End If
             If CLASS4_1 = "PGY1" Then
-                EMPNO4_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", EMPNO4_1)
-                NAME4_1 = String.Format("<span style = ""color:#66b8ff;;"">{0}</span>", NAME4_1)
+                EMPNO4_1 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", EMPNO4_1)
+                NAME4_1 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", NAME4_1)
             End If
 
 
