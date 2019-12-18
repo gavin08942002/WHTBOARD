@@ -93,9 +93,6 @@
                               <script>/*時間顯示*/
                                   document.getElementById('Time').innerHTML = new Date().toLocaleString() + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
                                   setInterval("document.getElementById('Time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());var time = new Date();  if ( time.getMinutes()%10 == 0 && time.getSeconds() == 5) myrefresh();", 1000);
-                                  
-                                 
-                                      
                                   </script>
                          </div>
                      </div>
