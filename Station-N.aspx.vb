@@ -787,10 +787,21 @@ Partial Class Station
         Dim bedfontsize As Integer = 35
         Dim WardStytle As String = "Nurse_ward"
         If BedCodeCountH.Contains(Hospcode) And BedCodeCountW.Contains(Wardcode) Then
-
             Bedwordcount = 5
             bedfontsize = 26
         End If
+
+
+        '護士區急診交班(30,60,90,已交班)要顯示的單位
+        Dim ORHCList() As String = {"1"}
+        Dim ORWCList() As String = {"40", "43", "44"}
+        Dim ORSHOWList As String = "N"
+        If ORHCList.Contains(Hospcode) And ORWCList.Contains(Wardcode) Then
+            ORSHOWList = "Y"
+        End If
+
+
+
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         Dim ConnORA As String = SELECT_ORACLE(0)
         Dim Nowdate As String = Now_Time.ToString("yyyy/MM/dd 00:00:00")
@@ -956,19 +967,19 @@ Partial Class Station
                 ERBed_List.Add(bedno)
             End If
             '急診新進病人轉住院30-60分且未交班列表
-            If (Not During3060m_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And Not if_handover And timetemp > 30 And timetemp < 59 Then
+            If (Not During3060m_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And Not if_handover And timetemp > 30 And timetemp < 59 And ORSHOWList = "Y" Then
                 During3060m_List.Add(bedno)
             End If
             '急診新進病人轉住院60-90分且未交班列表
-            If (Not During6090m_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And Not if_handover And timetemp > 60 And timetemp < 89 Then
+            If (Not During6090m_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And Not if_handover And timetemp > 60 And timetemp < 89 And ORSHOWList = "Y" Then
                 During6090m_List.Add(bedno)
             End If
             '急診新進病人轉住院超過90分且未交班列表
-            If (Not UP90m_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And Not if_handover And timetemp > 90 Then
+            If (Not UP90m_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And Not if_handover And timetemp > 90 And ORSHOWList = "Y" Then
                 UP90m_List.Add(bedno)
             End If
             '急診新進病人已交班列表
-            If (Not Handover_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And if_handover Then
+            If (Not Handover_List.Contains(bedno)) And (bedfrom = "2" Or bedfrom = "4" Or bedfrom = "6" Or bedfrom = "8") And FormatDateTime(admdate, DateFormat.ShortDate) = FormatDateTime(Nowdate, DateFormat.ShortDate) And caseno = firstcaseno And if_handover And ORSHOWList = "Y" Then
                 Handover_List.Add(bedno)
             End If
 
