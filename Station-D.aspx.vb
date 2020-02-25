@@ -2148,7 +2148,7 @@ Partial Class Station
         Show_Statistics_2(HospCode, WardCode,Now_Time) '畫面上方統計資料
         Nurse_List(HospCode, WardCode, 9, 20, NsSort, Dancag, Now_Time) '列出護士班表資料
         '台北選內科的病房顯示白天呈現科別、其它和新竹顯示目前護理站主治醫師班表
-        If DAY_Banlist.Contains(MSTR) And HospCode = "1" Then
+        If DAY_Banlist.Contains(MSTR) And (HospCode = "1" Or HospCode = "2") Then
             BanList_NS_D_S(HospCode, WardCode, Now_Time) '白天呈現科別醫師班表
             'Response.Write("白天呈現科別")
         Else
