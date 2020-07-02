@@ -27,12 +27,14 @@
                     //表格雙數行變色
                     $("#surgery table.Table_style  tr:odd,#examination table.Table_style  tr:odd").css("background-color", "#B2E0FF");
                     //無操作者姓名,"動態護理"反灰
-                    var UserName = document.getElementById("User_Label").innerText;
-                    if (UserName == "")
-                    {
-                        $("#Button2 Span").css("color", "#9d9d9d");
-                    }
-                    //判斷檔案名稱
+                    //var UserName = document.getElementById("User_Label").innerText;
+                    //if (UserName == "")
+                    //{
+                    //    $("#Button2 Span").css("color", "#9d9d9d");
+                    //}
+
+
+                    //判斷檔案名稱,讓Button變色
                     var script_name = document.location.pathname.match(/[^\/]+$/)[0];
                     console.log(script_name);
                     switch (script_name)
@@ -55,15 +57,13 @@
                     var to_nurses = page + ".aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
                     self.location.href = to_nurses
                 }
+                //動態護理連結
                 function Link_To_k234() {
                     var HospCode = $.url.param("HospCode");
                     var WardCode = $.url.param("WardCode");
-                    var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmove/webform1.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
+                    var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmove/webform.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
                     var UserName = document.getElementById("User_Label").innerText;
-                    if (UserName == "")
-                    { alert("無操作者資料!!,\n請關閉目前網頁,重新登入急住醫令-護理,\n重新連結護理內白板")}
-                    else
-                    {window.open(to_nurses)} 
+                    window.open(to_nurses)
                 }
                 //其它動態連結
                 function Link_To_k234_oth() {
