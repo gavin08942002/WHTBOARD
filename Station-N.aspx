@@ -13,6 +13,7 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/html5shiv.min.js"></script>
     <script src="Scripts/respond.js"></script>
+    <script src="Scripts/ServerDate.js"></script>
     <script language="JavaScript">
         function QueryString(name) {
             var AllVars = window.location.search.substring(1);
@@ -91,8 +92,8 @@
                      <div style ="float:left; height:60px; width:600px; text-align:right; font-size:40px; line-height:60px;">
                          <div id="Time">
                               <script>/*時間顯示*/
-                                  document.getElementById('Time').innerHTML = new Date().toLocaleString() + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
-                                  setInterval("document.getElementById('Time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());var time = new Date();  if ( time.getMinutes()%10 == 0 && time.getSeconds() == 5) myrefresh();", 1000);
+                                  document.getElementById('Time').innerHTML = date.toLocaleString() + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
+                                  setInterval("date.setSeconds(date.getSeconds()+1); document.getElementById('Time').innerHTML= date.toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());var time = new Date();   if ( time.getMinutes()%10 == 0 && time.getSeconds() == 5) myrefresh();", 1000);
                                   </script>
                          </div>
                      </div>
