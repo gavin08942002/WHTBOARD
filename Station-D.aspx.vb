@@ -1672,6 +1672,7 @@ Partial Class Station
         cmd2 &= " and D.bdate <= ( select sysdate from dual  ) "
         cmd2 &= " and D.edate >=  ( select sysdate from dual  ) "
         ' cmd2 &= " and B.CLASS <> 'XX'"   '排除INT 或PGY
+        cmd2 &= " and D.pry <> '-99' " 'shift 為BP時不顯示
         cmd2 &= " and SUBSTR(B.code,1,1) not like 'Z' " '排除INT
         cmd2 &= String.Format("and A.shift not in(   select  shift from drschloc where location = '總值'   and dept in ('{0}') and bdate <= ( select sysdate from dual  ) and edate >=  ( select sysdate from dual  )     ) ", Master) '排除兒科總值和值班醫師重複的情形
         cmd2 &= " order by C.master"
@@ -1750,6 +1751,7 @@ Partial Class Station
         cmd4 &= " and D.bdate <= ( select sysdate from dual  ) "
         cmd4 &= " and D.edate >=  ( select sysdate from dual  ) "
         'cmd4 &= " and B.CLASS <> 'XX' "   '排除INT 或PGY
+        cmd4 &= " and D.pry <> '-99' " 'shift 為BP時不顯示
         cmd4 &= " and SUBSTR(B.code,1,1) not like 'Z' " '排除INT
         cmd4 &= String.Format("and A.shift not in(   select  shift from drschloc where location = '總值'   and dept in ('{0}') and bdate <= ( select sysdate from dual  ) and edate >=  ( select sysdate from dual  )     ) ", Master) '排除兒科總值和值班醫師重複的情形
         cmd4 &= " order by C.master"
