@@ -92,8 +92,8 @@
                      <div style ="float:left; height:60px; width:600px; text-align:right; font-size:40px; line-height:60px;">
                          <div id="Time">
                               <script>/*時間顯示*/
-                                  document.getElementById('Time').innerHTML = date.toLocaleString() + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
-                                  setInterval("date.setSeconds(date.getSeconds()+1); document.getElementById('Time').innerHTML= date.toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());var time = new Date();   if ( time.getMinutes()%10 == 0 && time.getSeconds() == 5) myrefresh();", 1000);
+                                  document.getElementById('Time').innerHTML = date.toLocaleString() + ' 星期' + '日一二三四五六'.charAt(date.getDay());
+                                  setInterval("date.setSeconds(date.getSeconds()+1); document.getElementById('Time').innerHTML= date.toLocaleString()+' 星期'+'日一二三四五六'.charAt(date.getDay());var time = new date;   if ( time.getMinutes()%10 == 0 && time.getSeconds() == 5) myrefresh();", 1000);
                                   </script>
                          </div>
                      </div>
