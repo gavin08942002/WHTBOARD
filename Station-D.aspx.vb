@@ -854,12 +854,21 @@ Partial Class Station
         Dim During6090m_List As ArrayList = New ArrayList '急診轉住院60-90分鐘
         Dim UP90m_List As ArrayList = New ArrayList '急診轉住院超過90分鐘
 
-        '急診病患交班測試用院區
+        '插尿管閃爍測試用院區
         Dim Testhost As ArrayList = New ArrayList
         Testhost.Add("1")
-        '急診病患交班測試用護理站
+        Testhost.Add("2")
+        '插尿管閃爍測試用護理站
         Dim TestStation As ArrayList = New ArrayList
+        TestStation.Add("26")
+        TestStation.Add("27")
         TestStation.Add("34")
+        TestStation.Add("36")
+        TestStation.Add("46")
+        TestStation.Add("62")
+        TestStation.Add("63")
+        TestStation.Add("79")
+        TestStation.Add("88")
 
 
         'GridView1.Caption = "住院病人列表"
