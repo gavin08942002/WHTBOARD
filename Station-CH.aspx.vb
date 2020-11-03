@@ -962,7 +962,7 @@ Partial Class Station
 
             Case "4"    '新竹護理人員版本
                 Select Case NurseList.Rows.Count
-                    Case Is <= 6 '新竹護理人員小於6的版本
+                    Case Is <= 6 '新竹護理人員人數小於6的版本
                         For index = 0 To (NurseList.Rows.Count - 1)
                             If index < NSCount Then
                                 '處理護士所負責的病床資料==========
@@ -1457,7 +1457,7 @@ Partial Class Station
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         Dim Conn As OleDbConnection = New OleDbConnection
         Conn.ConnectionString = ConnStr
-        Dim cmd As String = String.Format("SELECT  * FROM MMH.Whtboard AL1 WHERE AL1.NS='{0}' AND seqno != 'xx'  and (empno not in ('mstr','day','duty','DEN') OR empno is  NULL) and grp is not null ORDER BY AL1.Seqno", Wardcode)
+        Dim cmd As String = String.Format("SELECT  * FROM MMH.Whtboard AL1 WHERE AL1.NS='{0}' AND seqno != 'xx'  and (empno not in ('mstr','day','duty','DEN','TEST') OR empno is  NULL) and grp is not null ORDER BY AL1.Seqno", Wardcode)
         Dim DA As OleDbDataAdapter = New OleDbDataAdapter(cmd, Conn)
         Dim DS As New DataSet
         Dim ContactInfo As String = Nothing
