@@ -1672,17 +1672,15 @@ Partial Class Station
         cmd2 &= " and E.EMPNO(+)  = A.DRCODE    "
         cmd2 &= " and (a.dept = d.dept OR a.master = d.dept)"
         cmd2 &= " and B.code (+)= P.empno"
-        'cmd2 &= String.Format("and A.HospID = '{0}'", Hospcode)
         cmd2 &= String.Format(" and D.hosp_use like '%{0}%'", Hospcode)
-        ' cmd2 &= String.Format(" and (D.location = '{0}' ) and D.dept = A.master ", Wardcode)
         cmd2 &= String.Format(" and (D.location = '{0}' ) ", Wardcode)
         cmd2 &= String.Format(" and (A.master = '{0}' OR A.dept = '{0}' )", Master)
         cmd2 &= String.Format(" and A.schdate = To_Date('{0}','yyyy/MM/DD') ", Nowdate)
         cmd2 &= " and D.bdate <= ( select sysdate from dual  ) "
         cmd2 &= " and D.edate >=  ( select sysdate from dual  ) "
-        ' cmd2 &= " and B.CLASS <> 'XX'"   '排除INT 或PGY
+        'cmd2 &= " and B.CLASS <> 'XX'"   '排除INT 或PGY    12/29
         cmd2 &= " and  nvl(D.pry,'0') <> '-99' " 'shift 為BP時不顯示
-        cmd2 &= " and SUBSTR(B.code,1,1) not like 'Z' " '排除INT
+        cmd2 &= " and SUBSTR(B.code,1,1) not like 'Z' " '排除INT    12/29
         cmd2 &= String.Format("and A.shift not in(   select  shift from drschloc where location = '總值'   and dept in ('{0}') and bdate <= ( select sysdate from dual  ) and edate >=  ( select sysdate from dual  )     ) ", Master) '排除兒科總值和值班醫師重複的情形
         cmd2 &= " order by C.master"
         Dim DA2 As OleDbDataAdapter = New OleDbDataAdapter(cmd2, Conn)

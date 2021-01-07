@@ -47,7 +47,7 @@ Partial Class Station
         Return OraStr
     End Function
     '##########判斷護理站代號,決定開啟兒科版本或一般護理站版本
-    Public Function distinguish_URL(ByVal Hospcode As String, ByVal Wardcode As String, ByVal Now_time As DateTime, ByVal ifkey As String) As String
+    Public Function distinguish_URL(ByVal Hospcode As String, ByVal Wardcode As String, ByVal Now_time As DateTime, ByVal ifkey As String, MSTR As String) As String
         Dim P_LIST() As String = {"16", "17"} '顯示小兒科版本的護理站代號
 
         Dim uri As New Uri(Request.Url.AbsoluteUri)
@@ -57,10 +57,15 @@ Partial Class Station
         Dim URL As String = Get_week(Hospcode, Wardcode, Now_time, ifkey)
         '有指定指向台北小兒科版本
         If Hospcode = "1" And P_LIST.Contains(Wardcode) And ifkey = "Y" Then
-
             URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
         ElseIf Hospcode = "1" And P_LIST.Contains(Wardcode) Then
             URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+            '指向台北主責選內科的版本
+        ElseIf Hospcode = "1" And MSTR = "IM" And ifkey = "Y" Then
+            URL = String.Format("station-DA.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
+        ElseIf Hospcode = "1" And MSTR = "IM" Then
+            URL = String.Format("station-DA.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+
         End If
         '新竹版本
         If Hospcode = "4" And ifkey = "Y" Then
@@ -141,7 +146,30 @@ Partial Class Station
             Return False
         End If
     End Function
+    '取得護理站的主責科別
+    Public Function Get_Master(ByVal Hospcode As String, ByVal Wardcode As String) As String
+        Dim ConnStr As String = SELECT_ORACLE(Hospcode)
+        Dim Conn As OleDbConnection = New OleDbConnection
+        Conn.ConnectionString = ConnStr
+        Dim DT As DataTable = New DataTable
+        Dim HD_cmd As String = String.Format("SELECT A.NAME  FROM WHTBOARD A  WHERE A.NS='{0}' and A.GRP='主責科別' and A.empno='mstr' ", Wardcode)
+        Dim HD_DA As OleDbDataAdapter = New OleDbDataAdapter(HD_cmd, Conn)
+        HD_DA.Fill(DT)
 
+        Dim Master As String = Nothing
+        If DT.Rows.Count > 0 Then
+            Master = DT.Rows(0)("NAME").ToString
+        End If
+        If (Conn.State = ConnectionState.Open) Then
+            Conn.Close()
+            Conn.Dispose()
+        End If
+        Return Master
+
+
+
+
+    End Function
 
     '主程式
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -150,13 +178,14 @@ Partial Class Station
         Dim Now_Time As DateTime = GET_Now_Time(HospCode)
         Dim key_time As String = Request.QueryString("time")
         Dim ifkey As String = "N"
+        Dim MSTR As String = Get_Master(HospCode, WardCode)
         If Not String.IsNullOrEmpty(key_time) Then
             Now_Time = DateTime.Parse(key_time)
             ifkey = "Y"
             '  Now_Time = Convert.ToDateTime(key_time, )
             Response.Write("測試時間:" & Now_Time.ToString("yyyy/MM/dd hh:mm:ss"))
         End If
-        Dim URL As String = distinguish_URL(HospCode, WardCode, Now_Time, ifkey)
+        Dim URL As String = distinguish_URL(HospCode, WardCode, Now_Time, ifkey, MSTR)
         Response.Redirect(URL)
     End Sub
 
