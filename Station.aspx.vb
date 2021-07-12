@@ -55,28 +55,44 @@ Partial Class Station
         '預設指向台北護理站版本
         'Dim URL As String = String.Format("station-D.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
         Dim URL As String = Get_week(Hospcode, Wardcode, Now_time, ifkey)
-        '有指定指向台北小兒科版本
-        If Hospcode = "1" And P_LIST.Contains(Wardcode) And ifkey = "Y" Then
-            URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
-        ElseIf Hospcode = "1" And P_LIST.Contains(Wardcode) Then
-            URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
-            '指向台北主責選內科的版本
-        ElseIf Hospcode = "1" And MSTR = "IM" And ifkey = "Y" Then
-            URL = String.Format("station-DA.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
-        ElseIf Hospcode = "1" And MSTR = "IM" Then
-            URL = String.Format("station-DA.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
 
-        End If
-        '新竹版本
-        If Hospcode = "4" And ifkey = "Y" Then
-            URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
-        ElseIf Hospcode = "4" Then
-            URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
-        End If
-        '台東版本
-        If Hospcode = "3" Then
-            URL = String.Format("station-TT.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
-        End If
+        Select Case Hospcode
+            '台北
+            Case "1"
+                '台北小兒科版本 station-p.aspx
+                If P_LIST.Contains(Wardcode) And ifkey = "Y" Then '時間測試
+                    URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
+                ElseIf P_LIST.Contains(Wardcode) Then
+                    URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+                End If
+                '台北內科版本 station-DA.aspx
+
+                If (MSTR = "IM") Then
+                    URL = URL.Replace("station-D", "station-DA")
+
+
+                End If
+
+
+                '淡水
+            Case "2"
+
+
+                '台東
+            Case "3"
+                '台東版本station-TT.aspx
+                URL = String.Format("station-TT.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+
+
+                '新竹
+            Case "4"
+                '新竹版本station-CH.aspx
+                If ifkey = "Y" Then '時間測試
+                    URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
+                Else
+                    URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+                End If
+        End Select
 
         Return URL
 
@@ -184,6 +200,10 @@ Partial Class Station
             ifkey = "Y"
             '  Now_Time = Convert.ToDateTime(key_time, )
             Response.Write("測試時間:" & Now_Time.ToString("yyyy/MM/dd hh:mm:ss"))
+        End If
+        '淡水61和63合併
+        If (HospCode = 2 And WardCode = 63) Then
+            WardCode = 61
         End If
         Dim URL As String = distinguish_URL(HospCode, WardCode, Now_Time, ifkey, MSTR)
         Response.Redirect(URL)

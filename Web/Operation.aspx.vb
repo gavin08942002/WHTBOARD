@@ -87,7 +87,7 @@ Partial Class Web_Default
         Dim date1 As Date = Now
         Dim Nowdate As String = String.Format("{0}/{1}/{2} 00:00:00", date1.Year(), date1.Month(), date1.Day()) ' 2015/07/13 00:00:00
         '##############################手術排程資料撈取
-        Dim cmd As String = String.Format("SELECT B.Bedns, B.bedno,B.bedpno,I.name, T.sch_opdt ,T.sch_opdr,D.name as DRname,T.sch_opfloor, T.sch_scd2  ")
+        Dim cmd As String = String.Format("SELECT B.Bedns, B.bedno,B.bedpno,I.name, T.sch_opdt ,T.sch_opdr,T.sch_optm ,D.name as DRname,T.sch_opfloor, T.sch_scd2  ")
         cmd += String.Format(" , DECODE(T.sch_actfg,1,'未報到',2,'報到',3,'手術中',4,'完成手術',5,'取消排程',6,'取消報到',7,'恢復室',8,'已離開') sch_actfg ")
         cmd += String.Format(" FROM  BedTBL B ,TOPR_SCH T ,DR D,IDP I")
         cmd += String.Format(" WHERE ")
@@ -156,6 +156,8 @@ Partial Class Web_Default
             '手術日期
             Dim sch_date As Date = DT_OP_SCH.Rows(i)("sch_opdt")
             Dim sch_opdt As String = String.Format("{0}/{1}", sch_date.Month.ToString, sch_date.Day.ToString)
+            '預定報到時間
+            Dim sch_optm As String = DT_OP_SCH.Rows(i)("sch_optm")
             '醫生員編,姓名
             Dim dr As String = DT_OP_SCH.Rows(i)("sch_opdr").ToString & " <br>" & DT_OP_SCH.Rows(i)("Drname").ToString
             '術式
@@ -167,6 +169,7 @@ Partial Class Web_Default
 
             Operation_final += String.Format("<tr class =""Table_tr_style1"">")
             Operation_final += String.Format("    <td class=""Table_td_style"">{0}</td>", sch_opdt)
+            Operation_final += String.Format("    <td class=""Table_td_style"">{0}</td>", sch_optm)
             Operation_final += String.Format("   <td class=""Table_td_style"">{0}</td>", bedno)
             Operation_final += String.Format("   <td class=""Table_td_style"">{0}</td>", pno)
             Operation_final += String.Format("   <td class=""Table_td_style"">{0}</td>", name)

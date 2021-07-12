@@ -181,14 +181,14 @@
         </div>
         <div id ="Footer">
              <div style="height:100px; width:1860px;background-color:#FFFFFF;border-radius:50px;">
-                 <div style = "width:50px; height:100px; float:left;"></div>
-                  <div id = "footer1" style= "width:440px;height:100px; float:left;">
-                             <div style = "width:120px; height:100px; float:left;">
-                                  <div style = "width:120px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#6F6A05; line-height:50px;">
+                 <div style = "width:30px; height:100px; float:left;"></div>
+                  <div id = "footer1" style= "width:366px;height:100px; float:left;">
+                             <div style = "width:100px; height:100px; float:left;">
+                                  <div style = "width:100px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#6F6A05; line-height:50px;">
                                       <asp:Label ID="TitleLabel1" runat="server"></asp:Label>
                                   </div>
                              </div>
-                             <div style = "width:320px; height:100px; float:left;">
+                             <div style = "width:266px; height:100px; float:left;">
                                  <!--
                                   <div style="width:150px; height:50px; float:left; text-align:center; font-size:40px">0000</div>
                                   <div style="width:200px; height:50px; float:left; text-align:left; font-size:40px">廖添丁</div>
@@ -198,35 +198,46 @@
                                  <asp:Label ID="DUTY_InfoLabe1" runat="server"></asp:Label>                                   
                              </div>
                   </div>  
-                  <div id = "footer2" style= "width:440px;height:100px; float:left;">
-                             <div style = "width:120px; height:100px; float:left;">
-                                  <div style = "width:120px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#9D6817; line-height:50px;">
+                  <div id = "footer2" style= "width:366px;height:100px; float:left;">
+                             <div style = "width:100px; height:100px; float:left;">
+                                  <div style = "width:100px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#9D6817; line-height:50px;">
                                       <asp:Label ID="TitleLabel2" runat="server"></asp:Label>
                                   </div>
 
                              </div>
-                             <div style = "width:320px; height:100px; float:left;">
+                             <div style = "width:266px; height:100px; float:left;">
                                  <asp:Label ID="DUTY_InfoLabe2" runat="server"></asp:Label>
                              </div>
-                  </div> 
-                  <div id = "footer3" style= "width:440px;height:100px; float:left;">
-                             <div style = "width:120px; height:100px; float:left;">
-                                  <div style = "width:120px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#465E62; line-height:50px;">
+                  </div>
+                  <div id = "footer5" style= "width:366px;height:100px; float:left;">
+                             <div style = "width:100px; height:100px; float:left;">
+                                  <div style = "width:100px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#162c79; line-height:50px;">
+                                      <asp:Label ID="TitleLabel5" runat="server"></asp:Label>
+                                  </div>
+
+                             </div>
+                             <div style = "width:266px; height:100px; float:left;">
+                                 <asp:Label ID="DUTY_InfoLabe5" runat="server"></asp:Label>
+                             </div>
+                  </div>  
+                  <div id = "footer3" style= "width:366px;height:100px; float:left;">
+                             <div style = "width:100px; height:100px; float:left;">
+                                  <div style = "width:100px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#465E62; line-height:50px;">
                                       <asp:Label ID="TitleLabel3" runat="server"></asp:Label>
                                   </div>
                               </div>
-                             <div style = "width:320px; height:100px; float:left;">
+                             <div style = "width:266px; height:100px; float:left;">
                                  <asp:Label ID="DUTY_InfoLabe3" runat="server"></asp:Label>
                              </div>
 
                   </div> 
-                  <div id = "footer4" style= "width:440px;height:100px; float:left;">
-                             <div style = "width:120px; height:100px; float:left;">
-                                  <div style = "width:120px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#22845B; line-height:50px;">
+                  <div id = "footer4" style= "width:366px;height:100px; float:left;">
+                             <div style = "width:100px; height:100px; float:left;">
+                                  <div style = "width:100px; height:100px; text-align:center; font-size:32px; font-weight:bold; color:#22845B; line-height:50px;">
                                       <asp:Label ID="TitleLabel4" runat="server"></asp:Label>
                                   </div>
                              </div>
-                             <div style = "width:320px; height:100px; float:left;">
+                             <div style = "width:266px; height:100px; float:left;">
                                  <asp:Label ID="DUTY_InfoLabe4" runat="server"></asp:Label>
                              </div>
                   </div> 

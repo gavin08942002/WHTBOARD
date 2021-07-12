@@ -883,6 +883,30 @@ Partial Class Station
         'GridView1.DataSource = DS.Tables("H_BedCauti")
         'GridView1.DataBind()
 
+        'EWS 醫師通知名單
+        Dim cmd5 As String = String.Format("SELECT T.pno, T.DR, T.NS, B.bedno ,T.udate, round(to_number(sysdate-T.udate)*24) as RAD  ")
+        cmd5 &= String.Format(" FROM TPREWS T, BEDTBL B  ")
+        cmd5 &= String.Format(" WHERE T.pno = B.bedpno ")
+        cmd5 &= String.Format(" AND T.CASENO = B.BEDCASENO  ")
+        cmd5 &= String.Format(" AND T.DR is not NULL ")
+        cmd5 &= String.Format(" AND T.NS = '{0}' ", Wardcode)
+        cmd5 &= String.Format("AND round(to_number(sysdate-T.udate)*24) < 8 ")
+
+
+        Dim DA5 As OleDbDataAdapter = New OleDbDataAdapter(cmd5, Conn)
+        DA5.Fill(DS, "EWS_LIST")
+        Dim EWS_LIST As ArrayList = New ArrayList
+        For d = 0 To DS.Tables("EWS_LIST").Rows.Count - 1
+            Dim EWS_BEDNO = Right(DS.Tables("EWS_LIST").Rows(d)("bedno"), Bedwordcount)
+            If Not EWS_LIST.Contains(EWS_BEDNO) Then
+                EWS_LIST.Add(EWS_BEDNO)
+            End If
+        Next
+        'GridView1.Caption = "EWS__列表"
+        'GridView1.DataSource = DS.Tables("EWS_LIST")
+        'GridView1.DataBind()
+
+
 
         '護理人員病床排序,NSSort的參數為'bedno'時將護士排序規則變更為以病床排序
 
@@ -930,11 +954,11 @@ Partial Class Station
         Dim During6090m_List As ArrayList = New ArrayList '急診轉住院60-90分鐘
         Dim UP90m_List As ArrayList = New ArrayList '急診轉住院超過90分鐘
 
-        '急診病患插尿管閃爍測試用院區
+        '插尿管閃爍測試用院區
         Dim Testhost As ArrayList = New ArrayList
         Testhost.Add("1")
         Testhost.Add("2")
-        '急診病患插尿管閃爍測試用護理站
+        '插尿管閃爍測試用護理站
         Dim TestStation As ArrayList = New ArrayList
         TestStation.Add("26")
         TestStation.Add("27")
@@ -1032,7 +1056,11 @@ Partial Class Station
                                             front = "<span class=""neon-effect"">"
                                             back = "</span>"
                                         End If
-
+                                        '判斷是否為EWS通知醫師之病患
+                                        If EWS_LIST.Contains(Right(DVTable.Rows(i)("Bedno").ToString, Bedwordcount)) Then
+                                            front = "<span style=""color:red;-webkit-text-stroke: 1.5px black; "">"
+                                            back = "</span>"
+                                        End If
 
                                         '已完成交班,深藍底白字
                                         If Handover_List.Contains(Right(BedNo, Bedwordcount)) And InBed_List.Contains(Right(BedNo, Bedwordcount)) Then
@@ -1072,13 +1100,19 @@ Partial Class Station
                                     If i < Bed_Count Then '控制所要顯示的病床數
                                         bedfontsize = 30
 
-                                        '判斷是否要閃爍文字
+                                        '判斷是否要閃爍文字(插尿管閃爍)
                                         Dim front As String = Nothing
                                         Dim back As String = Nothing
                                         If cauti_List.Contains(Right(DVTable.Rows(i)("Bedno").ToString, Bedwordcount)) And TestStation.Contains(Wardcode) And Testhost.Contains(Hospcode) Then
                                             front = "<span class=""neon-effect"">"
                                             back = "</span>"
                                         End If
+                                        '判斷是否為EWS通知醫師之病患
+                                        If EWS_LIST.Contains(Right(DVTable.Rows(i)("Bedno").ToString, Bedwordcount)) Then
+                                            front = "<span style=""color:red;-webkit-text-stroke: 1.5px black; "">"
+                                            back = "</span>"
+                                        End If
+
 
 
                                         '已完成交班,深藍底白字
@@ -1744,6 +1778,12 @@ Partial Class Station
         Dim CLASS4_1 As String = Nothing
         Dim NAME4_1 As String = Nothing
 
+        Dim TITLE5 As String = "實習<BR>醫學生"
+        Dim EMPNO5 As String = Nothing
+        Dim NAME5 As String = Nothing
+        Dim EMPNO5_1 As String = Nothing
+        Dim NAME5_1 As String = Nothing
+
 
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         If Hospcode = "2" Then '因淡水資料都放在台北,先固定只撈台北資料庫???????????????????????????????????????
@@ -1762,6 +1802,7 @@ Partial Class Station
         cmd &= " and (a.dept = b.dept OR a.master = b.dept)"
         cmd &= " and b.location like '%總值'"
         cmd &= " and  a.sch_type = 'S' "
+        cmd &= " and  a.status = 'Y' "
         cmd &= String.Format(" and b.hosp_use like '%{0}%'", Hospcode)
         cmd &= String.Format(" and trunc ( To_Date('{0}','yyyy/MM/DD')  ) >=  b.bdate", Nowdate)
         cmd &= String.Format(" and  trunc ( To_Date('{0}','yyyy/MM/DD')  ) <= b.Edate", Nowdate)
@@ -1805,6 +1846,7 @@ Partial Class Station
         cmd2 &= " and E.EMPNO(+)  = A.DRCODE    "
         cmd2 &= " and (a.dept = d.dept OR a.master = d.dept)"
         cmd2 &= " and B.code (+)= P.empno"
+        cmd2 &= " and A.status = 'Y'"
         'cmd2 &= String.Format("and A.HospID = '{0}'", Hospcode)
         cmd2 &= String.Format(" and D.hosp_use like '%{0}%'", Hospcode)
         ' cmd2 &= String.Format(" and (D.location = '{0}' ) and D.dept = A.master ", Wardcode)
@@ -1822,8 +1864,8 @@ Partial Class Station
         Dim Dept_List_DT2 As DataTable = New DataTable
         DA2.Fill(Dept_List_DT2)
 
-        GridView1.DataSource = Dept_List_DT2
-        GridView1.DataBind()
+        'GridView1.DataSource = Dept_List_DT2
+        'GridView1.DataBind()
 
         '第二格資料寫入變數
         If Dept_List_DT2.Rows.Count > 0 Then
@@ -1849,12 +1891,11 @@ Partial Class Station
         cmd3 &= " and (a.dept = b.dept OR a.master = b.dept)"
         cmd3 &= " and b.location like '%總值'"
         cmd3 &= " and  a.sch_type = 'S' "
+        cmd3 &= " and  a.status = 'Y' "
         cmd3 &= String.Format(" and b.hosp_use like '%{0}%'", Hospcode)
         cmd3 &= String.Format(" and trunc ( To_Date('{0}','yyyy/MM/DD')  ) >=  b.bdate", Yesdate)
         cmd3 &= String.Format(" and  trunc ( To_Date('{0}','yyyy/MM/DD')  ) <= b.Edate", Yesdate)
         cmd3 &= String.Format(" and a.schdate =     To_Date('{0}','yyyy/MM/DD')", Yesdate)
-        ' cmd3 &= " and (a.master = b.dept OR A.dept = B.dept)"
-
         cmd3 &= String.Format(" and (a.master = '{0}' OR a.dept = '{0}')", Master)
         cmd3 &= "ORDER by a.drcode"
         Dim DA3 As OleDbDataAdapter = New OleDbDataAdapter(cmd3, Conn)
@@ -1884,7 +1925,7 @@ Partial Class Station
         cmd4 &= " and E.EMPNO(+)  = A.DRCODE    "
         cmd4 &= " and (a.dept = d.dept OR a.master = d.dept)"
         cmd4 &= " and B.code (+)= P.empno"
-        'cmd4 &= String.Format("and A.HospID = '{0}'", Hospcode)
+        cmd4 &= " and A.status = 'Y'"
         cmd4 &= String.Format(" and D.hosp_use like '%{0}%'", Hospcode)
         cmd4 &= String.Format(" and D.location = '{0}'  ", Wardcode)
         cmd4 &= String.Format(" and (A.master = '{0}' OR A.dept='{0}')", Master)
@@ -1915,6 +1956,45 @@ Partial Class Station
                 NAME4_1 = Dept_List_DT4.Rows(1)("NAME").ToString
             End If
         End If
+        '第五格實習值班人員
+        Dim cmd5 As String = Nothing
+        cmd5 &= " SELECT SCH.MASTER,SCH.DEPT,SCH.SHIFT SCH_SHIFT,DLC.SHIFT DLC_SHIFT, DR.CODE DRCODE,DR.NAME,DR.DEPT,DLC.LOCATION,RSD.CSDP, NVL(TEL.GROUP1,DRCODE) EMPNO "
+        cmd5 &= " FROM INPDRSCH SCH "
+        cmd5 &= " INNER JOIN DRSCHLOC DLC ON (SCH.SHIFT = DLC.SHIFT AND DLC.bdate <= ( select sysdate from dual  ) AND DLC.edate >=  ( select sysdate from dual  ) AND (SCH.dept = DLC.dept OR SCH.master = DLC.dept)"
+        cmd5 &= String.Format(" AND DLC.hosp_use like '%{0}%'", Hospcode)
+        cmd5 &= String.Format(" AND DLC.LOCATION = '{0}'", Wardcode)
+        cmd5 &= ")"
+        cmd5 &= "LEFT JOIN PHSDB TEL ON (TEL.BDATE <= SYSDATE AND TEL.EDATE >= SYSDATE AND TEL.EMPNO = SCH.DRCODE)"
+        cmd5 &= " LEFT JOIN DR ON (DR.CODE = SCH.DRCODE)"
+        cmd5 &= " INNER JOIN RESIDENT RSD ON (RSD.EMPNO = DR.CODE AND RSD.FDATE <= SYSDATE AND RSD.TDATE >=SYSDATE AND "
+        cmd5 &= " RSD.DELETED = 'N' AND NOT NVL(RSD.EMPNO,'X') IN ('X') AND RSD.JOB IN ('實（見）習生','代訓') AND NVL(RSD.CLASS,'醫學') = '醫學')"
+        'cmd5 &= String.Format("INNER JOIN DRSCHLOC DLC ON ")
+        cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.START_TIME AND SCH.END_TIME   AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        'cmd5 &= " AND  SCH.SHIFT = DLC.SHIFT "
+
+
+
+
+        Dim DA5 As OleDbDataAdapter = New OleDbDataAdapter(cmd5, Conn)
+        Dim Dept_List_DT5 As DataTable = New DataTable
+        DA5.Fill(Dept_List_DT5)
+
+        'GridView1.DataSource = Dept_List_DT5
+        'GridView1.DataBind()
+
+
+        '第五格資料寫入變數
+        If Dept_List_DT5.Rows.Count > 0 Then
+            If Dept_List_DT5.Rows.Count >= 1 Then
+                EMPNO5 = Dept_List_DT5.Rows(0)("EMPNO").ToString
+                NAME5 = Dept_List_DT5.Rows(0)("NAME").ToString
+            End If
+            If Dept_List_DT5.Rows.Count >= 2 Then
+                EMPNO5_1 = Dept_List_DT5.Rows(1)("EMPNO").ToString
+                NAME5_1 = Dept_List_DT5.Rows(1)("NAME").ToString
+            End If
+        End If
+        '第五格資料寫入變數,在正中間
 
         '建立值班資料列表
         Dim DUTY_T As DataTable = New DataTable
@@ -1943,6 +2023,12 @@ Partial Class Station
         DUTY_T.Columns.Add("CLASS4_1")
         DUTY_T.Columns.Add("NAME4_1")
 
+        DUTY_T.Columns.Add("TITLE5")
+        DUTY_T.Columns.Add("EMPNO5")
+        DUTY_T.Columns.Add("NAME5")
+        DUTY_T.Columns.Add("EMPNO5_1")
+        DUTY_T.Columns.Add("NAME5_1")
+
         '將要顯示的資料放入最後顯示TABLE中
         Dim DUTY_R As DataRow = DUTY_T.NewRow
         DUTY_R("TITLE1") = TITLE1
@@ -1954,11 +2040,9 @@ Partial Class Station
         DUTY_R("TITLE2") = TITLE2
         DUTY_R("EMPNO2") = EMPNO2
         DUTY_R("CLASS2") = CLASS2
-
         DUTY_R("NAME2") = NAME2
         DUTY_R("EMPNO2_1") = EMPNO2_1
         DUTY_R("CLASS2_1") = CLASS2_1
-
         DUTY_R("NAME2_1") = NAME2_1
 
         DUTY_R("TITLE3") = TITLE3
@@ -1966,6 +2050,7 @@ Partial Class Station
         DUTY_R("NAME3") = NAME3
         DUTY_R("EMPNO3_1") = EMPNO3_1
         DUTY_R("NAME3_1") = NAME3_1
+
         DUTY_R("TITLE4") = TITLE4
         DUTY_R("EMPNO4") = EMPNO4
         DUTY_R("CLASS4") = CLASS4
@@ -1973,6 +2058,12 @@ Partial Class Station
         DUTY_R("EMPNO4_1") = EMPNO4_1
         DUTY_R("CLASS4_1") = CLASS4_1
         DUTY_R("NAME4_1") = NAME4_1
+
+        DUTY_R("TITLE5") = TITLE5
+        DUTY_R("EMPNO5") = EMPNO5
+        DUTY_R("NAME5") = NAME5
+        DUTY_R("EMPNO5_1") = EMPNO5_1
+        DUTY_R("NAME5_1") = NAME5_1
 
         DUTY_T.Rows.Add(DUTY_R)
 
@@ -1987,7 +2078,7 @@ Partial Class Station
             Conn.Dispose()
         End If
     End Function
-    '顯示下排值班醫師資料{共用}
+    '顯示下排值班醫師資料
     Public Sub Show_OndutyDoctor(ByVal OndutyDoctor_T As DataTable, ByVal Now_Time As DateTime)
         Dim HospCode As String = Request.QueryString("Hospcode")
         Dim WardCode As String = Request.QueryString("WardCode")
@@ -2004,6 +2095,7 @@ Partial Class Station
         Dim EMPNO_SHOW_2 As String = Nothing '第二格顯示資料
         Dim EMPNO_SHOW_3 As String = Nothing '第三格顯示資料
         Dim EMPNO_SHOW_4 As String = Nothing '第四格顯示資料
+        Dim EMPNO_SHOW_5 As String = Nothing '第五格顯示資料
 
         If OndutyDoctor_T.Rows.Count > 0 Then
             '第一格輕中重提示顯示
@@ -2103,7 +2195,6 @@ Partial Class Station
             '中度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_2.Contains(EMPNO3) And Not String.IsNullOrEmpty(EMPNO3) Then
                 EMPNO3_color = "<img src=""Images/Medium.png"" style="" height:35px;width:35px;"" />"
-
             End If
             '重度顯示
             If DTR_LIST.Contains(EMPNO2) And DTR_LIST_3.Contains(EMPNO3) And Not String.IsNullOrEmpty(EMPNO3) Then
@@ -2172,18 +2263,24 @@ Partial Class Station
                 EMPNO4_1 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", EMPNO4_1)
                 NAME4_1 = String.Format("<span style = ""color:#0089ff;"">{0}</span>", NAME4_1)
             End If
+            '第五格
+            Dim TITLE5 As String = OndutyDoctor_T.Rows(0)("TITLE5").ToString
+            Dim EMPNO5 As String = OndutyDoctor_T.Rows(0)("EMPNO5").ToString
+            Dim NAME5 As String = OndutyDoctor_T.Rows(0)("NAME5").ToString
+            Dim EMPNO5_1 As String = OndutyDoctor_T.Rows(0)("EMPNO5_1").ToString
+            Dim NAME5_1 As String = OndutyDoctor_T.Rows(0)("NAME5_1").ToString
 
 
             '第一格
             '若有二筆資料,將字元縮小
             If Not String.IsNullOrEmpty(EMPNO1) And Not String.IsNullOrEmpty(EMPNO1_1) Then
-                EMPNO_SHOW_1 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO1, EMPNO1_color)
-                EMPNO_SHOW_1 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME1)
-                EMPNO_SHOW_1 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO1_1, EMPNO1_1_color)
-                EMPNO_SHOW_1 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME1_1)
+                EMPNO_SHOW_1 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO1, EMPNO1_color)
+                EMPNO_SHOW_1 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME1)
+                EMPNO_SHOW_1 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO1_1, EMPNO1_1_color)
+                EMPNO_SHOW_1 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME1_1)
             Else
-                EMPNO_SHOW_1 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:center; line-height:100px; font-size:40px;font-family:arial;"">{1}{0}</div>", EMPNO1, EMPNO1_color)
-                EMPNO_SHOW_1 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:left; line-height:100px; font-size:50px;"">{0}</div>", NAME1)
+                EMPNO_SHOW_1 &= String.Format("<div style=""width:114px; height:100px; float:left; text-align:center; line-height:100px; font-size:40px;font-family:arial;"">{1}{0}</div>", EMPNO1, EMPNO1_color)
+                EMPNO_SHOW_1 &= String.Format("<div style=""width:152px; height:100px; float:left; text-align:left; line-height:100px; font-size:50px;"">{0}</div>", NAME1)
             End If
             TitleLabel1.Text = TITLE1
             DUTY_InfoLabe1.Text = EMPNO_SHOW_1
@@ -2191,13 +2288,13 @@ Partial Class Station
             '第二格
             '若有二筆資料,將字元縮小
             If Not String.IsNullOrEmpty(EMPNO2) And Not String.IsNullOrEmpty(EMPNO2_1) Then
-                EMPNO_SHOW_2 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO2, EMPNO2_color)
-                EMPNO_SHOW_2 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME2)
-                EMPNO_SHOW_2 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO2_1, EMPNO2_1_color)
-                EMPNO_SHOW_2 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME2_1)
+                EMPNO_SHOW_2 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO2, EMPNO2_color)
+                EMPNO_SHOW_2 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME2)
+                EMPNO_SHOW_2 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO2_1, EMPNO2_1_color)
+                EMPNO_SHOW_2 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME2_1)
             Else
-                EMPNO_SHOW_2 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:center; line-height:100px; font-size:40px;font-family:arial;"">{1}{0}</div>", EMPNO2, EMPNO2_color)
-                EMPNO_SHOW_2 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:left; line-height:100px; font-size:50px;"">{0}</div>", NAME2)
+                EMPNO_SHOW_2 &= String.Format("<div style=""width:114px; height:100px; float:left; text-align:center; line-height:100px; font-size:40px;font-family:arial;"">{1}{0}</div>", EMPNO2, EMPNO2_color)
+                EMPNO_SHOW_2 &= String.Format("<div style=""width:152px; height:100px; float:left; text-align:left; line-height:100px; font-size:50px;"">{0}</div>", NAME2)
             End If
             TitleLabel2.Text = TITLE2
             DUTY_InfoLabe2.Text = EMPNO_SHOW_2
@@ -2205,13 +2302,13 @@ Partial Class Station
             '第三格
             '若有二筆資料,將字元縮小
             If Not String.IsNullOrEmpty(EMPNO3) And Not String.IsNullOrEmpty(EMPNO3_1) Then
-                EMPNO_SHOW_3 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO3, EMPNO3_color)
-                EMPNO_SHOW_3 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME3)
-                EMPNO_SHOW_3 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO3_1, EMPNO3_1_color)
-                EMPNO_SHOW_3 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME3_1)
+                EMPNO_SHOW_3 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO3, EMPNO3_color)
+                EMPNO_SHOW_3 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME3)
+                EMPNO_SHOW_3 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO3_1, EMPNO3_1_color)
+                EMPNO_SHOW_3 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME3_1)
             Else
-                EMPNO_SHOW_3 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:center; line-height:100px; font-size:30px;font-family:arial;"">{1}{0}</div>", EMPNO3, EMPNO3_color)
-                EMPNO_SHOW_3 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:left; line-height:100px; font-size:40px"">{0}</div>", NAME3)
+                EMPNO_SHOW_3 &= String.Format("<div style=""width:114px; height:100px; float:left; text-align:center; line-height:100px; font-size:30px;font-family:arial;"">{1}{0}</div>", EMPNO3, EMPNO3_color)
+                EMPNO_SHOW_3 &= String.Format("<div style=""width:152px; height:100px; float:left; text-align:left; line-height:100px; font-size:40px"">{0}</div>", NAME3)
             End If
             TitleLabel3.Text = TITLE3
             DUTY_InfoLabe3.Text = EMPNO_SHOW_3
@@ -2219,16 +2316,28 @@ Partial Class Station
             '第四格
             '若有二筆資料,將字元縮小
             If Not String.IsNullOrEmpty(EMPNO4) And Not String.IsNullOrEmpty(EMPNO4_1) Then
-                EMPNO_SHOW_4 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO4, EMPNO4_color)
-                EMPNO_SHOW_4 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME4)
-                EMPNO_SHOW_4 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{0}</div>", EMPNO4_1)
-                EMPNO_SHOW_4 &= String.Format("<div style=""width:160px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME4_1)
+                EMPNO_SHOW_4 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO4, EMPNO4_color)
+                EMPNO_SHOW_4 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME4)
+                EMPNO_SHOW_4 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{0}</div>", EMPNO4_1)
+                EMPNO_SHOW_4 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:left; font-size:40px;line-height:50px;"">{0}</div>", NAME4_1)
             Else
-                EMPNO_SHOW_4 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:center; line-height:100px; font-size:30px;font-family:arial;"">{1}{0}</div>", EMPNO4, EMPNO4_color)
-                EMPNO_SHOW_4 &= String.Format("<div style=""width:160px; height:100px; float:left; text-align:left; line-height:100px; font-size:40px"">{0}</div>", NAME4)
+                EMPNO_SHOW_4 &= String.Format("<div style=""width:114px; height:100px; float:left; text-align:center; line-height:100px; font-size:30px;font-family:arial;"">{1}{0}</div>", EMPNO4, EMPNO4_color)
+                EMPNO_SHOW_4 &= String.Format("<div style=""width:152px; height:100px; float:left; text-align:left; line-height:100px; font-size:40px"">{0}</div>", NAME4)
             End If
             TitleLabel4.Text = TITLE4
             DUTY_InfoLabe4.Text = EMPNO_SHOW_4
+            '第五格--在中間
+            If Not String.IsNullOrEmpty(EMPNO5) And Not String.IsNullOrEmpty(EMPNO5_1) Then
+                EMPNO_SHOW_5 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{1}{0}</div>", EMPNO5, "")
+                EMPNO_SHOW_5 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:center; font-size:40px;line-height:50px;"">{0}</div>", NAME5)
+                EMPNO_SHOW_5 &= String.Format("<div style=""width:114px; height:50px; float:left; text-align:center; font-size:26px;font-family:arial;line-height:50px;"">{0}</div>", EMPNO5_1)
+                EMPNO_SHOW_5 &= String.Format("<div style=""width:152px; height:50px; float:left; text-align:center; font-size:40px;line-height:50px;"">{0}</div>", NAME5_1)
+            Else
+                EMPNO_SHOW_5 &= String.Format("<div style=""width:114px; height:100px; float:left; text-align:center; line-height:100px; font-size:30px;font-family:arial;"">{1}{0}</div>", EMPNO5, "")
+                EMPNO_SHOW_5 &= String.Format("<div style=""width:152px; height:100px; float:left; text-align:center; line-height:100px; font-size:40px"">{0}</div>", NAME5)
+            End If
+            TitleLabel5.Text = TITLE5
+            DUTY_InfoLabe5.Text = EMPNO_SHOW_5
 
 
         End If

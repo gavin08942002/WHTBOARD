@@ -124,7 +124,19 @@
                     	<div class="Doctor_title" style ="font-size:24px;" >
                             <asp:Label ID="DTitleLabel2" runat="server" Text="R/PGY/NP"></asp:Label></div>
                         <div class="Doctor_title" style =" font-size:25px;" >
-                            <asp:Label ID="DTitleLabel3" runat="server" Text="實習醫學生"></asp:Label></div>
+                             <div style="width:50px;height:60px;float:left;">
+                                  <div style="width:50px;height:30px;vertical-align:middle;line-height:30px;">PM</div>
+                                  <div style="width:50px;height:30px;vertical-align:middle;line-height:30px;">OFF</div>
+                             </div>
+                             <div style="width:75px;height:60px;float:left;">
+                                  <asp:Label ID="DTitleLabel3" runat="server" Text="代理人"></asp:Label>
+                             </div>
+                            
+                            
+                            
+                            
+
+                        </div>
                         
                     </div>
                     <div style="width:375px;height:840px;">
@@ -163,13 +175,13 @@
                             <asp:Label ID="DTitleLabel6" runat="server" Text="R/PGY/NP"></asp:Label></div>
                         <div class="Doctor_title" style =" font-size:25px;" >
                              <div style="width:50px;height:60px;float:left;">
-                                  <div style="width:50px;height:30px;"></div>
-                                  <div style="width:50px;height:30px;"></div>
+                                  <div style="width:50px;height:30px;vertical-align:middle;line-height:30px;">PM</div>
+                                  <div style="width:50px;height:30px;vertical-align:middle;line-height:30px;">OFF</div>
                              </div>
-
                              <div style="width:75px;height:60px;float:left;">
-                                  <asp:Label ID="DTitleLabel7" runat="server" Text="代理人"></asp:Label></div>
+                                  <asp:Label ID="DTitleLabel7" runat="server" Text="代理人"></asp:Label>
                              </div>
+                        </div>
                             
                         
                     </div>

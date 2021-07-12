@@ -215,6 +215,9 @@ Partial Class Web_Default
         DA.Fill(DT)
         Dim st As String() = {"bedns", "bedno", "pno", "activity", "maxudate"}
         Dim DT_activity As DataTable = DT.DefaultView.ToTable(True, st)
+     
+
+
         'GridView7.Caption = "行動能力SQL列表"
         'GridView7.DataSource = DT_activity
         'GridView7.DataBind()
@@ -239,8 +242,31 @@ Partial Class Web_Default
                 Activity_Table.Rows.Add(Activity_row)
             End If
         Next
-        'GridView8.Caption = "行動能力顯示列表"
-        'GridView8.DataSource = Activity_Table
+
+        '跌倒>=3
+        Dim cmd1 As String = String.Format(" select a.bedns,a.bedno,b.pno,b.score,b.exetime ")
+        cmd1 += String.Format(" from bedtbl a ")
+        cmd1 += String.Format(" inner join nsfaldwn b on a.bedpno=b.pno and a.bedcaseno=b.caseno and b.exetime >= trunc(sysdate) - 7 ")
+        cmd1 += String.Format(" inner join (select pno,caseno,max(exetime) as exetime from nsfaldwn group by pno,caseno ) c on b.pno=c.pno and b.caseno=c.caseno and b.exetime=c.exetime ")
+        cmd1 += String.Format(" Where a.bedsts > 0 and b.score >= 3 and a.bedns='{0}' ", Wardcode)
+        cmd1 += String.Format(" order by bedno,exetime ")
+
+        Dim DA1 As OleDbDataAdapter = New OleDbDataAdapter(cmd1, Conn)
+        Dim DT1 As New DataTable
+        DA1.Fill(DT1)
+        '跌倒>=3排版
+
+        Dim faldn_rows As DataRow = Activity_Table.NewRow
+        If DT.Rows.Count > 0 Then
+            faldn_rows("Activity") = "跌倒>=3"
+
+            faldn_rows("bed") = Table_To_String(DT1, "Bedno")
+            faldn_rows("BedCount") = DT1.Rows.Count
+            Activity_Table.Rows.Add(faldn_rows)
+        End If
+
+        'GridView8.Caption = "跌倒>=3顯示列表"
+        'GridView8.DataSource = DT1
         'GridView8.DataBind()
         '行動能力最後顯示()
         Dim Activity_Show As String = ""
@@ -254,8 +280,8 @@ Partial Class Web_Default
             Activity_Show += String.Format("    <td align=""left"" class=""Table_td_style"" >{0}</td>", Bedno)
             Activity_Show += String.Format("    <td class=""Table_td_style"" >{0}</td>", BedCount)
             Activity_Show += String.Format("</tr>")
-
         Next
+
         Activity_Show_All.Text = Activity_Show
     End Sub
 

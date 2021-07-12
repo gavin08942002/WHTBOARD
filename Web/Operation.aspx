@@ -41,7 +41,7 @@
                                {
                         case "Operation.aspx":
                             $("#Button3").addClass("active").css("color", "#dff0d8");
-                          //  $("#Button3 Span").css("color", "rgb(173,1,1)");
+
                             break;
                         case "Nurses.aspx":
                             $("#Button5").addClass("active").css("color", "#dff0d8");
@@ -173,12 +173,13 @@
                     <table   class ="Table_style">
                           <tr class ="Table_tr_header_style">
                                 <td class="Table_td_style" style="width:7%;">日期</td>
+                                <td class="Table_td_style" style="width:7%;">報到</td>
                                 <td class="Table_td_style" style="width:5%;">床號</td>
-                                <td class="Table_td_style" style="width:10%;">病歷號碼</td>
+                                <td class="Table_td_style" style="width:11%;">病歷號碼</td>
                                 <td class="Table_td_style" style="width:10%;">姓名</td>
-                                <td class="Table_td_style" style="width:45%;">術式</td>
-                                <td class="Table_td_style" style="width:12%;">醫師</td>
-                                <td class="Table_td_style" style="width:11%;">狀態</td>
+                                <td class="Table_td_style" style="width:40%;">術式</td>
+                                <td class="Table_td_style" style="width:10%;">醫師</td>
+                                <td class="Table_td_style" style="width:10%;">狀態</td>
                         </tr>
                         <!--
                         <tr class ="Table_tr_style1">
