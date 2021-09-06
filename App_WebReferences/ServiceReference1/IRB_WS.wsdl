@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="qrcode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="p_id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="p_data" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="qrcodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="qrcodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_MmhName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DixDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="myCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_MmhNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_MmhNameResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Pno_Info">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="p_pno" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Pno_InfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Pno_InfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_FQ">
+        <s:complexType />
+      </s:element>
+      <s:element name="Get_FQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_FQResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_ItemDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PNO" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="f_udate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="t_udate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_ItemDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_ItemDetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Psn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_PsnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_PsnResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Psn_nopass">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Psn_nopassResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_Psn_nopassResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_EmpInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_EmpInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_EmpInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Dept">
+        <s:complexType />
+      </s:element>
+      <s:element name="Get_DeptResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_DeptResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Tposit">
+        <s:complexType />
+      </s:element>
+      <s:element name="Get_TpositResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_TpositResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Psn_Decode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RemoteIP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hosp" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Psn_DecodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_Psn_DecodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_NsInfo_Role">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="p_empno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_NsInfo_RoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_NsInfo_RoleResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_NSInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HospCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WardCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BedIDSE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_NSInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_NSInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_OPInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HospCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WardCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BedIDSE" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OPDT_F" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="OPDT_T" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_OPInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_OPInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="qrcodeSoapIn">
+    <wsdl:part name="parameters" element="tns:qrcode" />
+  </wsdl:message>
+  <wsdl:message name="qrcodeSoapOut">
+    <wsdl:part name="parameters" element="tns:qrcodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_MmhNameSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_MmhName" />
+  </wsdl:message>
+  <wsdl:message name="Get_MmhNameSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_MmhNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="Pno_InfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Pno_Info" />
+  </wsdl:message>
+  <wsdl:message name="Pno_InfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Pno_InfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_FQSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_FQ" />
+  </wsdl:message>
+  <wsdl:message name="Get_FQSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_FQResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_ItemDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_ItemDetail" />
+  </wsdl:message>
+  <wsdl:message name="Get_ItemDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_ItemDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_PsnSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Psn" />
+  </wsdl:message>
+  <wsdl:message name="Get_PsnSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_PsnResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_Psn_nopassSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Psn_nopass" />
+  </wsdl:message>
+  <wsdl:message name="Get_Psn_nopassSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_Psn_nopassResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_EmpInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_EmpInfo" />
+  </wsdl:message>
+  <wsdl:message name="Get_EmpInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_EmpInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_DeptSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Dept" />
+  </wsdl:message>
+  <wsdl:message name="Get_DeptSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_DeptResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_TpositSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Tposit" />
+  </wsdl:message>
+  <wsdl:message name="Get_TpositSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_TpositResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_Psn_DecodeSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Psn_Decode" />
+  </wsdl:message>
+  <wsdl:message name="Get_Psn_DecodeSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_Psn_DecodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_NsInfo_RoleSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_NsInfo_Role" />
+  </wsdl:message>
+  <wsdl:message name="Get_NsInfo_RoleSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_NsInfo_RoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_NSInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_NSInfo" />
+  </wsdl:message>
+  <wsdl:message name="Get_NSInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_NSInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_OPInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_OPInfo" />
+  </wsdl:message>
+  <wsdl:message name="Get_OPInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_OPInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IRB_WSSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="qrcode">
+      <wsdl:input message="tns:qrcodeSoapIn" />
+      <wsdl:output message="tns:qrcodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_MmhName">
+      <wsdl:input message="tns:Get_MmhNameSoapIn" />
+      <wsdl:output message="tns:Get_MmhNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Pno_Info">
+      <wsdl:input message="tns:Pno_InfoSoapIn" />
+      <wsdl:output message="tns:Pno_InfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_FQ">
+      <wsdl:input message="tns:Get_FQSoapIn" />
+      <wsdl:output message="tns:Get_FQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_ItemDetail">
+      <wsdl:input message="tns:Get_ItemDetailSoapIn" />
+      <wsdl:output message="tns:Get_ItemDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn">
+      <wsdl:input message="tns:Get_PsnSoapIn" />
+      <wsdl:output message="tns:Get_PsnSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn_nopass">
+      <wsdl:input message="tns:Get_Psn_nopassSoapIn" />
+      <wsdl:output message="tns:Get_Psn_nopassSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_EmpInfo">
+      <wsdl:input message="tns:Get_EmpInfoSoapIn" />
+      <wsdl:output message="tns:Get_EmpInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Dept">
+      <wsdl:input message="tns:Get_DeptSoapIn" />
+      <wsdl:output message="tns:Get_DeptSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Tposit">
+      <wsdl:input message="tns:Get_TpositSoapIn" />
+      <wsdl:output message="tns:Get_TpositSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn_Decode">
+      <wsdl:input message="tns:Get_Psn_DecodeSoapIn" />
+      <wsdl:output message="tns:Get_Psn_DecodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_NsInfo_Role">
+      <wsdl:input message="tns:Get_NsInfo_RoleSoapIn" />
+      <wsdl:output message="tns:Get_NsInfo_RoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_NSInfo">
+      <wsdl:input message="tns:Get_NSInfoSoapIn" />
+      <wsdl:output message="tns:Get_NSInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_OPInfo">
+      <wsdl:input message="tns:Get_OPInfoSoapIn" />
+      <wsdl:output message="tns:Get_OPInfoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IRB_WSSoap" type="tns:IRB_WSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="qrcode">
+      <soap:operation soapAction="http://tempuri.org/qrcode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_MmhName">
+      <soap:operation soapAction="http://tempuri.org/Get_MmhName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pno_Info">
+      <soap:operation soapAction="http://tempuri.org/Pno_Info" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_FQ">
+      <soap:operation soapAction="http://tempuri.org/Get_FQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_ItemDetail">
+      <soap:operation soapAction="http://tempuri.org/Get_ItemDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn">
+      <soap:operation soapAction="http://tempuri.org/Get_Psn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn_nopass">
+      <soap:operation soapAction="http://tempuri.org/Get_Psn_nopass" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_EmpInfo">
+      <soap:operation soapAction="http://tempuri.org/Get_EmpInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Dept">
+      <soap:operation soapAction="http://tempuri.org/Get_Dept" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Tposit">
+      <soap:operation soapAction="http://tempuri.org/Get_Tposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn_Decode">
+      <soap:operation soapAction="http://tempuri.org/Get_Psn_Decode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_NsInfo_Role">
+      <soap:operation soapAction="http://tempuri.org/Get_NsInfo_Role" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_NSInfo">
+      <soap:operation soapAction="http://tempuri.org/Get_NSInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_OPInfo">
+      <soap:operation soapAction="http://tempuri.org/Get_OPInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IRB_WSSoap12" type="tns:IRB_WSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="qrcode">
+      <soap12:operation soapAction="http://tempuri.org/qrcode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_MmhName">
+      <soap12:operation soapAction="http://tempuri.org/Get_MmhName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pno_Info">
+      <soap12:operation soapAction="http://tempuri.org/Pno_Info" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_FQ">
+      <soap12:operation soapAction="http://tempuri.org/Get_FQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_ItemDetail">
+      <soap12:operation soapAction="http://tempuri.org/Get_ItemDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn">
+      <soap12:operation soapAction="http://tempuri.org/Get_Psn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn_nopass">
+      <soap12:operation soapAction="http://tempuri.org/Get_Psn_nopass" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_EmpInfo">
+      <soap12:operation soapAction="http://tempuri.org/Get_EmpInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Dept">
+      <soap12:operation soapAction="http://tempuri.org/Get_Dept" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Tposit">
+      <soap12:operation soapAction="http://tempuri.org/Get_Tposit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Psn_Decode">
+      <soap12:operation soapAction="http://tempuri.org/Get_Psn_Decode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_NsInfo_Role">
+      <soap12:operation soapAction="http://tempuri.org/Get_NsInfo_Role" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_NSInfo">
+      <soap12:operation soapAction="http://tempuri.org/Get_NSInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_OPInfo">
+      <soap12:operation soapAction="http://tempuri.org/Get_OPInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IRB_WS">
+    <wsdl:port name="IRB_WSSoap" binding="tns:IRB_WSSoap">
+      <soap:address location="http://aps2.tp.mmh.org.tw/irb_ws/IRB_WS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IRB_WSSoap12" binding="tns:IRB_WSSoap12">
+      <soap12:address location="http://aps2.tp.mmh.org.tw/irb_ws/IRB_WS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

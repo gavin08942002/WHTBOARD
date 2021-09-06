@@ -1,0 +1,2261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="User_PsnCard_rec">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="User_PsnCard_recResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="User_PsnCard_recResult" type="tns:PsnCard" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PsnCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="personid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cardno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="tdate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="edate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="User_Info_rec">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="User_Info_recResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="User_Info_recResult" type="tns:EmpnoInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EmpnoInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="truename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dateofbirth" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="gender" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Get_Inp_DrSch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="schdate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Inp_DrSchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_Inp_DrSchResult" type="tns:ArrayOfInp_DrSch" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInp_DrSch">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Inp_DrSch" nillable="true" type="tns:Inp_DrSch" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Inp_DrSch">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DEPTCNAME1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDrList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dr" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDrListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDrListResult" type="tns:ArrayOfDrList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDrList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DrList" nillable="true" type="tns:DrList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DrList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SHIFT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LOCATION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WEEK" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSelectChange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="schdate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dept" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSelectChangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSelectChangeResult" type="tns:ArrayOfDrSelectChangeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDrSelectChangeList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DrSelectChangeList" nillable="true" type="tns:DrSelectChangeList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DrSelectChangeList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SHIFT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CLASS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LOCATION" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPeopleData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="schdate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPeopleDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPeopleDataResult" type="tns:ArrayOfPeopleData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPeopleData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PeopleData" nillable="true" type="tns:PeopleData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PeopleData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNAME1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SHIFT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NSENG" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HOSPID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GROUP1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PHONE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SelectPage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectPageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectPageResult" type="tns:ArrayOfSelectPage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSelectPage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SelectPage" nillable="true" type="tns:SelectPage" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SelectPage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CHDRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="APPLYDATE" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Ward">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WardResult" type="tns:ArrayOfWard" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Ward" nillable="true" type="tns:Ward" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Ward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DEPTCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNAME1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SHIFT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NSENG" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GROUP1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PHONE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CLASS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DropList">
+        <s:complexType />
+      </s:element>
+      <s:element name="DropListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DropListResult" type="tns:ArrayOfDept" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDept">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Dept" nillable="true" type="tns:Dept" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Dept">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNAME1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDropList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDropListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDropListResult" type="tns:ArrayOfDept" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckSchedule">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="drcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="chdate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDRCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckScheduleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckScheduleResult" type="tns:CheckScheduleRec" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CheckScheduleRec">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CHDRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CHDRNAE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IS_CHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IS_URDATE" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendMsg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDRCODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMsgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMsgResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Change_Status">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Change_StatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Change_StatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Change">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCostEmpno">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Cost" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCostEmpnoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCostEmpnoResult" type="tns:ArrayOfCostEmpnoList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCostEmpnoList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CostEmpnoList" nillable="true" type="tns:CostEmpnoList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CostEmpnoList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="empno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="namec" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ddate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tposit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="address" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lat" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="lng" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OnCall">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HOSPID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OnCallResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OnCallResult" type="tns:ArrayOfOnCall" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOnCall">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OnCall" nillable="true" type="tns:OnCall" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OnCall">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CLASS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CNAME1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GROUP1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PHONE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SHIFT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HOSPID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URGENT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VS" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckContinue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckContinueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckContinueResult" type="tns:CheckContinueRec" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CheckContinueRec">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SELECTDAY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BSELECTDAY" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ASELECTDAY" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ShowWeek">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShowWeekResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ShowWeekResult" type="tns:ShowWeekRec" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ShowWeekRec">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="WEEK" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckChangeCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckChangeCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckChangeCountResult" type="tns:CheckChangeCountRec" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CheckChangeCountRec">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="COUNT" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ChangeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeListResult" type="tns:ArrayOfChangeList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfChangeList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChangeList" nillable="true" type="tns:ChangeList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChangeList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CHDRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="APPLYDATE" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CancelChange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHDRCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelChangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelChangeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OnCallPersonal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OnCallPersonalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OnCallPersonalResult" type="tns:ArrayOfOnCallPersonal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOnCallPersonal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OnCallPersonal" nillable="true" type="tns:OnCallPersonal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OnCallPersonal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DEPT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DRCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SCHDATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WEEK" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SHIFT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HOSPID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MASTER" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="URGENT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VS" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="NsDropList">
+        <s:complexType />
+      </s:element>
+      <s:element name="NsDropListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NsDropListResult" type="tns:ArrayOfNsDrop" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNsDrop">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NsDrop" nillable="true" type="tns:NsDrop" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NsDrop">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NSCHINES" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NSENG" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="PsnCard" nillable="true" type="tns:PsnCard" />
+      <s:element name="EmpnoInfo" nillable="true" type="tns:EmpnoInfo" />
+      <s:element name="ArrayOfInp_DrSch" nillable="true" type="tns:ArrayOfInp_DrSch" />
+      <s:element name="ArrayOfDrList" nillable="true" type="tns:ArrayOfDrList" />
+      <s:element name="ArrayOfDrSelectChangeList" nillable="true" type="tns:ArrayOfDrSelectChangeList" />
+      <s:element name="ArrayOfPeopleData" nillable="true" type="tns:ArrayOfPeopleData" />
+      <s:element name="ArrayOfSelectPage" nillable="true" type="tns:ArrayOfSelectPage" />
+      <s:element name="ArrayOfWard" nillable="true" type="tns:ArrayOfWard" />
+      <s:element name="ArrayOfDept" nillable="true" type="tns:ArrayOfDept" />
+      <s:element name="CheckScheduleRec" nillable="true" type="tns:CheckScheduleRec" />
+      <s:element name="ArrayOfCostEmpnoList" nillable="true" type="tns:ArrayOfCostEmpnoList" />
+      <s:element name="ArrayOfOnCall" nillable="true" type="tns:ArrayOfOnCall" />
+      <s:element name="CheckContinueRec" nillable="true" type="tns:CheckContinueRec" />
+      <s:element name="ShowWeekRec" nillable="true" type="tns:ShowWeekRec" />
+      <s:element name="CheckChangeCountRec" nillable="true" type="tns:CheckChangeCountRec" />
+      <s:element name="ArrayOfChangeList" nillable="true" type="tns:ArrayOfChangeList" />
+      <s:element name="ArrayOfOnCallPersonal" nillable="true" type="tns:ArrayOfOnCallPersonal" />
+      <s:element name="ArrayOfNsDrop" nillable="true" type="tns:ArrayOfNsDrop" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_PsnCard_recSoapIn">
+    <wsdl:part name="parameters" element="tns:User_PsnCard_rec" />
+  </wsdl:message>
+  <wsdl:message name="User_PsnCard_recSoapOut">
+    <wsdl:part name="parameters" element="tns:User_PsnCard_recResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_Info_recSoapIn">
+    <wsdl:part name="parameters" element="tns:User_Info_rec" />
+  </wsdl:message>
+  <wsdl:message name="User_Info_recSoapOut">
+    <wsdl:part name="parameters" element="tns:User_Info_recResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_Inp_DrSchSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Inp_DrSch" />
+  </wsdl:message>
+  <wsdl:message name="Get_Inp_DrSchSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_Inp_DrSchResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDrListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDrList" />
+  </wsdl:message>
+  <wsdl:message name="GetDrListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDrListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectChangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSelectChange" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectChangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSelectChangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPeopleDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPeopleData" />
+  </wsdl:message>
+  <wsdl:message name="GetPeopleDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPeopleDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectPageSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectPage" />
+  </wsdl:message>
+  <wsdl:message name="SelectPageSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectPageResponse" />
+  </wsdl:message>
+  <wsdl:message name="WardSoapIn">
+    <wsdl:part name="parameters" element="tns:Ward" />
+  </wsdl:message>
+  <wsdl:message name="WardSoapOut">
+    <wsdl:part name="parameters" element="tns:WardResponse" />
+  </wsdl:message>
+  <wsdl:message name="DropListSoapIn">
+    <wsdl:part name="parameters" element="tns:DropList" />
+  </wsdl:message>
+  <wsdl:message name="DropListSoapOut">
+    <wsdl:part name="parameters" element="tns:DropListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDropListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDropList" />
+  </wsdl:message>
+  <wsdl:message name="GetDropListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDropListResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckScheduleSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckSchedule" />
+  </wsdl:message>
+  <wsdl:message name="CheckScheduleSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckScheduleResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMsgSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMsg" />
+  </wsdl:message>
+  <wsdl:message name="SendMsgSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMsgResponse" />
+  </wsdl:message>
+  <wsdl:message name="Change_StatusSoapIn">
+    <wsdl:part name="parameters" element="tns:Change_Status" />
+  </wsdl:message>
+  <wsdl:message name="Change_StatusSoapOut">
+    <wsdl:part name="parameters" element="tns:Change_StatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeSoapIn">
+    <wsdl:part name="parameters" element="tns:Change" />
+  </wsdl:message>
+  <wsdl:message name="ChangeSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCostEmpnoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCostEmpno" />
+  </wsdl:message>
+  <wsdl:message name="GetCostEmpnoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCostEmpnoResponse" />
+  </wsdl:message>
+  <wsdl:message name="OnCallSoapIn">
+    <wsdl:part name="parameters" element="tns:OnCall" />
+  </wsdl:message>
+  <wsdl:message name="OnCallSoapOut">
+    <wsdl:part name="parameters" element="tns:OnCallResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckContinueSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckContinue" />
+  </wsdl:message>
+  <wsdl:message name="CheckContinueSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckContinueResponse" />
+  </wsdl:message>
+  <wsdl:message name="ShowWeekSoapIn">
+    <wsdl:part name="parameters" element="tns:ShowWeek" />
+  </wsdl:message>
+  <wsdl:message name="ShowWeekSoapOut">
+    <wsdl:part name="parameters" element="tns:ShowWeekResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckChangeCountSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckChangeCount" />
+  </wsdl:message>
+  <wsdl:message name="CheckChangeCountSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckChangeCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeListSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeList" />
+  </wsdl:message>
+  <wsdl:message name="ChangeListSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelChangeSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelChange" />
+  </wsdl:message>
+  <wsdl:message name="CancelChangeSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelChangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="OnCallPersonalSoapIn">
+    <wsdl:part name="parameters" element="tns:OnCallPersonal" />
+  </wsdl:message>
+  <wsdl:message name="OnCallPersonalSoapOut">
+    <wsdl:part name="parameters" element="tns:OnCallPersonalResponse" />
+  </wsdl:message>
+  <wsdl:message name="NsDropListSoapIn">
+    <wsdl:part name="parameters" element="tns:NsDropList" />
+  </wsdl:message>
+  <wsdl:message name="NsDropListSoapOut">
+    <wsdl:part name="parameters" element="tns:NsDropListResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="User_PsnCard_recHttpGetIn">
+    <wsdl:part name="empno" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="User_PsnCard_recHttpGetOut">
+    <wsdl:part name="Body" element="tns:PsnCard" />
+  </wsdl:message>
+  <wsdl:message name="User_Info_recHttpGetIn">
+    <wsdl:part name="empno" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="User_Info_recHttpGetOut">
+    <wsdl:part name="Body" element="tns:EmpnoInfo" />
+  </wsdl:message>
+  <wsdl:message name="Get_Inp_DrSchHttpGetIn">
+    <wsdl:part name="schdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_Inp_DrSchHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfInp_DrSch" />
+  </wsdl:message>
+  <wsdl:message name="GetDrListHttpGetIn">
+    <wsdl:part name="dr" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDrListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDrList" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectChangeHttpGetIn">
+    <wsdl:part name="schdate" type="s:string" />
+    <wsdl:part name="dept" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectChangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDrSelectChangeList" />
+  </wsdl:message>
+  <wsdl:message name="GetPeopleDataHttpGetIn">
+    <wsdl:part name="schdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPeopleDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPeopleData" />
+  </wsdl:message>
+  <wsdl:message name="SelectPageHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SelectPageHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSelectPage" />
+  </wsdl:message>
+  <wsdl:message name="WardHttpGetIn">
+    <wsdl:part name="DEPT" type="s:string" />
+    <wsdl:part name="SCHDATE" type="s:string" />
+    <wsdl:part name="MASTER" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WardHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWard" />
+  </wsdl:message>
+  <wsdl:message name="DropListHttpGetIn" />
+  <wsdl:message name="DropListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDept" />
+  </wsdl:message>
+  <wsdl:message name="GetDropListHttpGetIn">
+    <wsdl:part name="MASTER" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDropListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDept" />
+  </wsdl:message>
+  <wsdl:message name="CheckScheduleHttpGetIn">
+    <wsdl:part name="drcode" type="s:string" />
+    <wsdl:part name="chdate" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckScheduleHttpGetOut">
+    <wsdl:part name="Body" element="tns:CheckScheduleRec" />
+  </wsdl:message>
+  <wsdl:message name="SendMsgHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDRCODE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMsgHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Change_StatusHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="LoginCode" type="s:string" />
+    <wsdl:part name="STATUS" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Change_StatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+    <wsdl:part name="LoginCode" type="s:string" />
+    <wsdl:part name="STATUS" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCostEmpnoHttpGetIn">
+    <wsdl:part name="Cost" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCostEmpnoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfCostEmpnoList" />
+  </wsdl:message>
+  <wsdl:message name="OnCallHttpGetIn">
+    <wsdl:part name="HOSPID" type="s:string" />
+    <wsdl:part name="MASTER" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OnCallHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfOnCall" />
+  </wsdl:message>
+  <wsdl:message name="CheckContinueHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckContinueHttpGetOut">
+    <wsdl:part name="Body" element="tns:CheckContinueRec" />
+  </wsdl:message>
+  <wsdl:message name="ShowWeekHttpGetIn">
+    <wsdl:part name="CHDATE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ShowWeekHttpGetOut">
+    <wsdl:part name="Body" element="tns:ShowWeekRec" />
+  </wsdl:message>
+  <wsdl:message name="CheckChangeCountHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckChangeCountHttpGetOut">
+    <wsdl:part name="Body" element="tns:CheckChangeCountRec" />
+  </wsdl:message>
+  <wsdl:message name="ChangeListHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfChangeList" />
+  </wsdl:message>
+  <wsdl:message name="CancelChangeHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+    <wsdl:part name="CHDRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancelChangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="OnCallPersonalHttpGetIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OnCallPersonalHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfOnCallPersonal" />
+  </wsdl:message>
+  <wsdl:message name="NsDropListHttpGetIn" />
+  <wsdl:message name="NsDropListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfNsDrop" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpPostIn" />
+  <wsdl:message name="HelloWorldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="User_PsnCard_recHttpPostIn">
+    <wsdl:part name="empno" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="User_PsnCard_recHttpPostOut">
+    <wsdl:part name="Body" element="tns:PsnCard" />
+  </wsdl:message>
+  <wsdl:message name="User_Info_recHttpPostIn">
+    <wsdl:part name="empno" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="User_Info_recHttpPostOut">
+    <wsdl:part name="Body" element="tns:EmpnoInfo" />
+  </wsdl:message>
+  <wsdl:message name="Get_Inp_DrSchHttpPostIn">
+    <wsdl:part name="schdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_Inp_DrSchHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfInp_DrSch" />
+  </wsdl:message>
+  <wsdl:message name="GetDrListHttpPostIn">
+    <wsdl:part name="dr" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDrListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDrList" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectChangeHttpPostIn">
+    <wsdl:part name="schdate" type="s:string" />
+    <wsdl:part name="dept" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSelectChangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDrSelectChangeList" />
+  </wsdl:message>
+  <wsdl:message name="GetPeopleDataHttpPostIn">
+    <wsdl:part name="schdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPeopleDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPeopleData" />
+  </wsdl:message>
+  <wsdl:message name="SelectPageHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SelectPageHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSelectPage" />
+  </wsdl:message>
+  <wsdl:message name="WardHttpPostIn">
+    <wsdl:part name="DEPT" type="s:string" />
+    <wsdl:part name="SCHDATE" type="s:string" />
+    <wsdl:part name="MASTER" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WardHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWard" />
+  </wsdl:message>
+  <wsdl:message name="DropListHttpPostIn" />
+  <wsdl:message name="DropListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDept" />
+  </wsdl:message>
+  <wsdl:message name="GetDropListHttpPostIn">
+    <wsdl:part name="MASTER" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDropListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDept" />
+  </wsdl:message>
+  <wsdl:message name="CheckScheduleHttpPostIn">
+    <wsdl:part name="drcode" type="s:string" />
+    <wsdl:part name="chdate" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckScheduleHttpPostOut">
+    <wsdl:part name="Body" element="tns:CheckScheduleRec" />
+  </wsdl:message>
+  <wsdl:message name="SendMsgHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDRCODE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMsgHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Change_StatusHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="LoginCode" type="s:string" />
+    <wsdl:part name="STATUS" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Change_StatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+    <wsdl:part name="LoginCode" type="s:string" />
+    <wsdl:part name="STATUS" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCostEmpnoHttpPostIn">
+    <wsdl:part name="Cost" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCostEmpnoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfCostEmpnoList" />
+  </wsdl:message>
+  <wsdl:message name="OnCallHttpPostIn">
+    <wsdl:part name="HOSPID" type="s:string" />
+    <wsdl:part name="MASTER" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OnCallHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfOnCall" />
+  </wsdl:message>
+  <wsdl:message name="CheckContinueHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckContinueHttpPostOut">
+    <wsdl:part name="Body" element="tns:CheckContinueRec" />
+  </wsdl:message>
+  <wsdl:message name="ShowWeekHttpPostIn">
+    <wsdl:part name="CHDATE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ShowWeekHttpPostOut">
+    <wsdl:part name="Body" element="tns:ShowWeekRec" />
+  </wsdl:message>
+  <wsdl:message name="CheckChangeCountHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckChangeCountHttpPostOut">
+    <wsdl:part name="Body" element="tns:CheckChangeCountRec" />
+  </wsdl:message>
+  <wsdl:message name="ChangeListHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfChangeList" />
+  </wsdl:message>
+  <wsdl:message name="CancelChangeHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+    <wsdl:part name="URDATE" type="s:string" />
+    <wsdl:part name="CHDATE" type="s:string" />
+    <wsdl:part name="CHDRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancelChangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="OnCallPersonalHttpPostIn">
+    <wsdl:part name="DRCODE" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OnCallPersonalHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfOnCallPersonal" />
+  </wsdl:message>
+  <wsdl:message name="NsDropListHttpPostIn" />
+  <wsdl:message name="NsDropListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfNsDrop" />
+  </wsdl:message>
+  <wsdl:portType name="ws_psnSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <wsdl:input message="tns:User_PsnCard_recSoapIn" />
+      <wsdl:output message="tns:User_PsnCard_recSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <wsdl:input message="tns:User_Info_recSoapIn" />
+      <wsdl:output message="tns:User_Info_recSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <wsdl:input message="tns:Get_Inp_DrSchSoapIn" />
+      <wsdl:output message="tns:Get_Inp_DrSchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <wsdl:input message="tns:GetDrListSoapIn" />
+      <wsdl:output message="tns:GetDrListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <wsdl:input message="tns:GetSelectChangeSoapIn" />
+      <wsdl:output message="tns:GetSelectChangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <wsdl:input message="tns:GetPeopleDataSoapIn" />
+      <wsdl:output message="tns:GetPeopleDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <wsdl:input message="tns:SelectPageSoapIn" />
+      <wsdl:output message="tns:SelectPageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <wsdl:input message="tns:WardSoapIn" />
+      <wsdl:output message="tns:WardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <wsdl:input message="tns:DropListSoapIn" />
+      <wsdl:output message="tns:DropListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <wsdl:input message="tns:GetDropListSoapIn" />
+      <wsdl:output message="tns:GetDropListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <wsdl:input message="tns:CheckScheduleSoapIn" />
+      <wsdl:output message="tns:CheckScheduleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <wsdl:input message="tns:SendMsgSoapIn" />
+      <wsdl:output message="tns:SendMsgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <wsdl:input message="tns:Change_StatusSoapIn" />
+      <wsdl:output message="tns:Change_StatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <wsdl:input message="tns:ChangeSoapIn" />
+      <wsdl:output message="tns:ChangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <wsdl:input message="tns:GetCostEmpnoSoapIn" />
+      <wsdl:output message="tns:GetCostEmpnoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <wsdl:input message="tns:OnCallSoapIn" />
+      <wsdl:output message="tns:OnCallSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <wsdl:input message="tns:CheckContinueSoapIn" />
+      <wsdl:output message="tns:CheckContinueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <wsdl:input message="tns:ShowWeekSoapIn" />
+      <wsdl:output message="tns:ShowWeekSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <wsdl:input message="tns:CheckChangeCountSoapIn" />
+      <wsdl:output message="tns:CheckChangeCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <wsdl:input message="tns:ChangeListSoapIn" />
+      <wsdl:output message="tns:ChangeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <wsdl:input message="tns:CancelChangeSoapIn" />
+      <wsdl:output message="tns:CancelChangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <wsdl:input message="tns:OnCallPersonalSoapIn" />
+      <wsdl:output message="tns:OnCallPersonalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <wsdl:input message="tns:NsDropListSoapIn" />
+      <wsdl:output message="tns:NsDropListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ws_psnHttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <wsdl:input message="tns:User_PsnCard_recHttpGetIn" />
+      <wsdl:output message="tns:User_PsnCard_recHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <wsdl:input message="tns:User_Info_recHttpGetIn" />
+      <wsdl:output message="tns:User_Info_recHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <wsdl:input message="tns:Get_Inp_DrSchHttpGetIn" />
+      <wsdl:output message="tns:Get_Inp_DrSchHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <wsdl:input message="tns:GetDrListHttpGetIn" />
+      <wsdl:output message="tns:GetDrListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <wsdl:input message="tns:GetSelectChangeHttpGetIn" />
+      <wsdl:output message="tns:GetSelectChangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <wsdl:input message="tns:GetPeopleDataHttpGetIn" />
+      <wsdl:output message="tns:GetPeopleDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <wsdl:input message="tns:SelectPageHttpGetIn" />
+      <wsdl:output message="tns:SelectPageHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <wsdl:input message="tns:WardHttpGetIn" />
+      <wsdl:output message="tns:WardHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <wsdl:input message="tns:DropListHttpGetIn" />
+      <wsdl:output message="tns:DropListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <wsdl:input message="tns:GetDropListHttpGetIn" />
+      <wsdl:output message="tns:GetDropListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <wsdl:input message="tns:CheckScheduleHttpGetIn" />
+      <wsdl:output message="tns:CheckScheduleHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <wsdl:input message="tns:SendMsgHttpGetIn" />
+      <wsdl:output message="tns:SendMsgHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <wsdl:input message="tns:Change_StatusHttpGetIn" />
+      <wsdl:output message="tns:Change_StatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <wsdl:input message="tns:ChangeHttpGetIn" />
+      <wsdl:output message="tns:ChangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <wsdl:input message="tns:GetCostEmpnoHttpGetIn" />
+      <wsdl:output message="tns:GetCostEmpnoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <wsdl:input message="tns:OnCallHttpGetIn" />
+      <wsdl:output message="tns:OnCallHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <wsdl:input message="tns:CheckContinueHttpGetIn" />
+      <wsdl:output message="tns:CheckContinueHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <wsdl:input message="tns:ShowWeekHttpGetIn" />
+      <wsdl:output message="tns:ShowWeekHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <wsdl:input message="tns:CheckChangeCountHttpGetIn" />
+      <wsdl:output message="tns:CheckChangeCountHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <wsdl:input message="tns:ChangeListHttpGetIn" />
+      <wsdl:output message="tns:ChangeListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <wsdl:input message="tns:CancelChangeHttpGetIn" />
+      <wsdl:output message="tns:CancelChangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <wsdl:input message="tns:OnCallPersonalHttpGetIn" />
+      <wsdl:output message="tns:OnCallPersonalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <wsdl:input message="tns:NsDropListHttpGetIn" />
+      <wsdl:output message="tns:NsDropListHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ws_psnHttpPost">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpPostIn" />
+      <wsdl:output message="tns:HelloWorldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <wsdl:input message="tns:User_PsnCard_recHttpPostIn" />
+      <wsdl:output message="tns:User_PsnCard_recHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <wsdl:input message="tns:User_Info_recHttpPostIn" />
+      <wsdl:output message="tns:User_Info_recHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <wsdl:input message="tns:Get_Inp_DrSchHttpPostIn" />
+      <wsdl:output message="tns:Get_Inp_DrSchHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <wsdl:input message="tns:GetDrListHttpPostIn" />
+      <wsdl:output message="tns:GetDrListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <wsdl:input message="tns:GetSelectChangeHttpPostIn" />
+      <wsdl:output message="tns:GetSelectChangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <wsdl:input message="tns:GetPeopleDataHttpPostIn" />
+      <wsdl:output message="tns:GetPeopleDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <wsdl:input message="tns:SelectPageHttpPostIn" />
+      <wsdl:output message="tns:SelectPageHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <wsdl:input message="tns:WardHttpPostIn" />
+      <wsdl:output message="tns:WardHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <wsdl:input message="tns:DropListHttpPostIn" />
+      <wsdl:output message="tns:DropListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <wsdl:input message="tns:GetDropListHttpPostIn" />
+      <wsdl:output message="tns:GetDropListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <wsdl:input message="tns:CheckScheduleHttpPostIn" />
+      <wsdl:output message="tns:CheckScheduleHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <wsdl:input message="tns:SendMsgHttpPostIn" />
+      <wsdl:output message="tns:SendMsgHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <wsdl:input message="tns:Change_StatusHttpPostIn" />
+      <wsdl:output message="tns:Change_StatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <wsdl:input message="tns:ChangeHttpPostIn" />
+      <wsdl:output message="tns:ChangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <wsdl:input message="tns:GetCostEmpnoHttpPostIn" />
+      <wsdl:output message="tns:GetCostEmpnoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <wsdl:input message="tns:OnCallHttpPostIn" />
+      <wsdl:output message="tns:OnCallHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <wsdl:input message="tns:CheckContinueHttpPostIn" />
+      <wsdl:output message="tns:CheckContinueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <wsdl:input message="tns:ShowWeekHttpPostIn" />
+      <wsdl:output message="tns:ShowWeekHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <wsdl:input message="tns:CheckChangeCountHttpPostIn" />
+      <wsdl:output message="tns:CheckChangeCountHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <wsdl:input message="tns:ChangeListHttpPostIn" />
+      <wsdl:output message="tns:ChangeListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <wsdl:input message="tns:CancelChangeHttpPostIn" />
+      <wsdl:output message="tns:CancelChangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <wsdl:input message="tns:OnCallPersonalHttpPostIn" />
+      <wsdl:output message="tns:OnCallPersonalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <wsdl:input message="tns:NsDropListHttpPostIn" />
+      <wsdl:output message="tns:NsDropListHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ws_psnSoap" type="tns:ws_psnSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <soap:operation soapAction="http://tempuri.org/User_PsnCard_rec" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <soap:operation soapAction="http://tempuri.org/User_Info_rec" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <soap:operation soapAction="http://tempuri.org/Get_Inp_DrSch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <soap:operation soapAction="http://tempuri.org/GetDrList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <soap:operation soapAction="http://tempuri.org/GetSelectChange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <soap:operation soapAction="http://tempuri.org/GetPeopleData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <soap:operation soapAction="http://tempuri.org/SelectPage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <soap:operation soapAction="http://tempuri.org/Ward" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <soap:operation soapAction="http://tempuri.org/DropList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <soap:operation soapAction="http://tempuri.org/GetDropList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <soap:operation soapAction="http://tempuri.org/CheckSchedule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <soap:operation soapAction="http://tempuri.org/SendMsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <soap:operation soapAction="http://tempuri.org/Change_Status" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <soap:operation soapAction="http://tempuri.org/Change" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <soap:operation soapAction="http://tempuri.org/GetCostEmpno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <soap:operation soapAction="http://tempuri.org/OnCall" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <soap:operation soapAction="http://tempuri.org/CheckContinue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <soap:operation soapAction="http://tempuri.org/ShowWeek" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <soap:operation soapAction="http://tempuri.org/CheckChangeCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <soap:operation soapAction="http://tempuri.org/ChangeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <soap:operation soapAction="http://tempuri.org/CancelChange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <soap:operation soapAction="http://tempuri.org/OnCallPersonal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <soap:operation soapAction="http://tempuri.org/NsDropList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ws_psnSoap12" type="tns:ws_psnSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <soap12:operation soapAction="http://tempuri.org/User_PsnCard_rec" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <soap12:operation soapAction="http://tempuri.org/User_Info_rec" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <soap12:operation soapAction="http://tempuri.org/Get_Inp_DrSch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <soap12:operation soapAction="http://tempuri.org/GetDrList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <soap12:operation soapAction="http://tempuri.org/GetSelectChange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <soap12:operation soapAction="http://tempuri.org/GetPeopleData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <soap12:operation soapAction="http://tempuri.org/SelectPage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <soap12:operation soapAction="http://tempuri.org/Ward" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <soap12:operation soapAction="http://tempuri.org/DropList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <soap12:operation soapAction="http://tempuri.org/GetDropList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <soap12:operation soapAction="http://tempuri.org/CheckSchedule" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <soap12:operation soapAction="http://tempuri.org/SendMsg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <soap12:operation soapAction="http://tempuri.org/Change_Status" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <soap12:operation soapAction="http://tempuri.org/Change" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <soap12:operation soapAction="http://tempuri.org/GetCostEmpno" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <soap12:operation soapAction="http://tempuri.org/OnCall" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <soap12:operation soapAction="http://tempuri.org/CheckContinue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <soap12:operation soapAction="http://tempuri.org/ShowWeek" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <soap12:operation soapAction="http://tempuri.org/CheckChangeCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <soap12:operation soapAction="http://tempuri.org/ChangeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <soap12:operation soapAction="http://tempuri.org/CancelChange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <soap12:operation soapAction="http://tempuri.org/OnCallPersonal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <soap12:operation soapAction="http://tempuri.org/NsDropList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ws_psnHttpGet" type="tns:ws_psnHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <http:operation location="/User_PsnCard_rec" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <http:operation location="/User_Info_rec" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <http:operation location="/Get_Inp_DrSch" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <http:operation location="/GetDrList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <http:operation location="/GetSelectChange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <http:operation location="/GetPeopleData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <http:operation location="/SelectPage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <http:operation location="/Ward" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <http:operation location="/DropList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <http:operation location="/GetDropList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <http:operation location="/CheckSchedule" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <http:operation location="/SendMsg" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <http:operation location="/Change_Status" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <http:operation location="/Change" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <http:operation location="/GetCostEmpno" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <http:operation location="/OnCall" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <http:operation location="/CheckContinue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <http:operation location="/ShowWeek" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <http:operation location="/CheckChangeCount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <http:operation location="/ChangeList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <http:operation location="/CancelChange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <http:operation location="/OnCallPersonal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <http:operation location="/NsDropList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ws_psnHttpPost" type="tns:ws_psnHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_PsnCard_rec">
+      <http:operation location="/User_PsnCard_rec" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="User_Info_rec">
+      <http:operation location="/User_Info_rec" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Inp_DrSch">
+      <http:operation location="/Get_Inp_DrSch" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDrList">
+      <http:operation location="/GetDrList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSelectChange">
+      <http:operation location="/GetSelectChange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeopleData">
+      <http:operation location="/GetPeopleData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPage">
+      <http:operation location="/SelectPage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ward">
+      <http:operation location="/Ward" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DropList">
+      <http:operation location="/DropList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDropList">
+      <http:operation location="/GetDropList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSchedule">
+      <http:operation location="/CheckSchedule" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMsg">
+      <http:operation location="/SendMsg" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change_Status">
+      <http:operation location="/Change_Status" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Change">
+      <http:operation location="/Change" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostEmpno">
+      <http:operation location="/GetCostEmpno" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCall">
+      <http:operation location="/OnCall" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckContinue">
+      <http:operation location="/CheckContinue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowWeek">
+      <http:operation location="/ShowWeek" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeCount">
+      <http:operation location="/CheckChangeCount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeList">
+      <http:operation location="/ChangeList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelChange">
+      <http:operation location="/CancelChange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OnCallPersonal">
+      <http:operation location="/OnCallPersonal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NsDropList">
+      <http:operation location="/NsDropList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ws_psn">
+    <wsdl:port name="ws_psnSoap" binding="tns:ws_psnSoap">
+      <soap:address location="https://mepf.mmh.org.tw/app_ws/ws_psn.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ws_psnSoap12" binding="tns:ws_psnSoap12">
+      <soap12:address location="https://mepf.mmh.org.tw/app_ws/ws_psn.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ws_psnHttpGet" binding="tns:ws_psnHttpGet">
+      <http:address location="https://mepf.mmh.org.tw/app_ws/ws_psn.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ws_psnHttpPost" binding="tns:ws_psnHttpPost">
+      <http:address location="https://mepf.mmh.org.tw/app_ws/ws_psn.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

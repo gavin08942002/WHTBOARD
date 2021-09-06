@@ -1,0 +1,120 @@
+﻿a:hover {
+        color:#ff9900;
+        }
+a:link {
+        text-decoration: none;
+        }
+a:visited {
+        text-decoration:none; 
+        }
+#Body {
+              width:1024px;
+              margin:0px auto;
+              background-color:white;
+        }
+ #head {
+              width:1024px;
+              height:175px;
+        }
+#main {
+              width:1024px;
+        }
+ #topic {
+        width:1024px;
+        height:50px;
+        line-height:50px;
+        }
+ #content {
+        width:1024px;
+        }
+.big-red {
+        font-size:24px;
+        font-weight:bold;
+        color:rgb(173, 1, 1);
+        }
+.big {
+        font-size:24px;
+        font-weight:bold;
+        }
+.big-blue {
+        font-size:24px;
+        font-weight:bold;
+        color:rgb(79, 129, 189);
+        }
+
+ 
+Div.Topic_blue {
+    width:100%;
+    height:50px;
+     font-size:28px;
+     font-weight:bold;
+     color:rgb(79, 129, 189);
+}
+div.Topic_Image {
+    width:125px; 
+    height:45px; 
+    margin-left:1px; 
+    margin-right:1px; 
+    float:left;
+}
+img.Topic_image_file {
+    border:0px solid; 
+    width: 108px; 
+    height:60px
+}
+.info {
+    width:1024px; 
+    height:50px; 
+    background-color:#efefef;
+}
+.Table_Title_big_blue {
+        font-size:24px;
+        font-weight:bold;
+        color:rgb(79, 129, 189);
+        }
+.Table_style {
+    width:100%;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    border:3px solid black;
+    border-collapse:collapse;
+ 
+}
+.Table_tr_header_style {
+    vertical-align:middle; 
+    background-color:rgb(242, 242, 242); 
+    text-align:center;
+    color:rgb(79, 129, 189);
+    border:1px solid black;
+    border-collapse:collapse;
+    
+}
+.Table_tr_style1 {
+    vertical-align:middle; 
+    background-color:white; 
+    text-align:center;
+    border:1px solid black;
+    border-collapse:collapse;
+}
+.Table_tr_style2 {
+    vertical-align:middle; 
+    background-color:rgb(242, 242, 242); 
+    text-align:center;
+    border:1px solid black;
+    border-collapse:collapse;
+}
+
+.Table_td_style {
+    border:1px solid black;
+    border-collapse:collapse;
+   height:60px;
+   font-size:24px;
+}
+#Showclock {
+font-size:24px;
+}
+.hr_margin {
+margin:2px;
+
+}
