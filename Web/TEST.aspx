@@ -31,7 +31,7 @@
     <input type="radio" name="radio-1" id="radio-3">
   </fieldset>
  
-  <h2>Checkbox</h2>
+  <h2>Checkboxss</h2>
   <fieldset>
     <legend>Hotel Ratings: </legend>
     <label for="checkbox-1">2 Star</label>
