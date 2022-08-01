@@ -41,6 +41,8 @@ Partial Class Station
                 OraStr = "Provider=OraOLEDB.Oracle;user id=his;data source=tt_opd_ord; persist security info=true;password=his1160"
             Case "4"
                 OraStr = "Provider=OraOLEDB.Oracle;user id=his;data source=hc_opd_ord; persist security info=true;password=his1160"
+            Case "5"
+                OraStr = "Provider=OraOLEDB.Oracle;user id=his;data source=cc_opd_ord; persist security info=true;password=his1160"
             Case "0"
                 OraStr = "Provider=OraOLEDB.Oracle;user id=dr;data source=hcora2; persist security info=true;password=mmhedp"
         End Select
@@ -65,13 +67,7 @@ Partial Class Station
                 ElseIf P_LIST.Contains(Wardcode) Then
                     URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
                 End If
-                '台北內科版本 station-DA.aspx
 
-                If (MSTR = "IM") Then
-                    URL = URL.Replace("station-D", "station-DA")
-
-
-                End If
 
 
                 '淡水
@@ -92,6 +88,9 @@ Partial Class Station
                 Else
                     URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
                 End If
+            Case "5"
+                URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+
         End Select
 
         Return URL
@@ -204,8 +203,4 @@ Partial Class Station
         Dim URL As String = distinguish_URL(HospCode, WardCode, Now_Time, ifkey, MSTR)
         Response.Redirect(URL)
     End Sub
-
-
-
-
 End Class
