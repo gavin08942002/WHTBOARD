@@ -116,7 +116,7 @@
                     	<div class="Doctor_title"  >
                             <asp:Label ID="DTitleLabel2" runat="server" Text="值班醫師"></asp:Label></div>
                         <div class="Doctor_title" >
-                            <asp:Label ID="DTitleLabel3" runat="server" Text="實習醫師"></asp:Label></div>
+                            <asp:Label ID="DTitleLabel3" runat="server" Text=""></asp:Label></div>
                         
                     </div>
                     <div style="width:500px;height:840px;">
@@ -154,7 +154,7 @@
                     	<div class="Doctor_title"   >
                             <asp:Label ID="DTitleLabel6" runat="server" Text="照會醫師"></asp:Label></div>
                         <div class="Doctor_title" >
-                            <asp:Label ID="DTitleLabel7" runat="server" Text="實班醫師"></asp:Label></div>
+                            <asp:Label ID="DTitleLabel7" runat="server" Text=""></asp:Label></div>
                         
                     </div>
                     <div style="width:375px;height:840px;">

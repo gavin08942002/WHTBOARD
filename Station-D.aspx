@@ -124,7 +124,7 @@
                     	<div class="Doctor_title" style ="font-size:24px;" >
                             <asp:Label ID="DTitleLabel2" runat="server" Text="R/PGY/NP"></asp:Label></div>
                         <div class="Doctor_title" style =" font-size:25px;" >
-                            <asp:Label ID="DTitleLabel3" runat="server" Text="實習醫學生"></asp:Label></div>
+                            <asp:Label ID="DTitleLabel3" runat="server" Text=""></asp:Label></div>
                         
                     </div>
                     <div style="width:375px;height:840px;">
@@ -162,7 +162,7 @@
                     	<div class="Doctor_title" style ="font-size:24px;"  >
                             <asp:Label ID="DTitleLabel6" runat="server" Text="R/PGY/NP"></asp:Label></div>
                         <div class="Doctor_title" style =" font-size:25px;" >
-                            <asp:Label ID="DTitleLabel7" runat="server" Text="實習醫學生"></asp:Label></div>
+                            <asp:Label ID="DTitleLabel7" runat="server" Text=""></asp:Label></div>
                         
                     </div>
                     <div style="width:375px;height:840px;">

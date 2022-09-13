@@ -25,6 +25,8 @@ Partial Class Web_Default
                 OraStr = "Provider=OraOLEDB.Oracle;user id=his;data source=tt_opd_ord; persist security info=true;password=his1160"
             Case "4"
                 OraStr = "Provider=OraOLEDB.Oracle;user id=his;data source=hc_opd_ord; persist security info=true;password=his1160"
+            Case "5"
+                OraStr = "Provider=OraOLEDB.Oracle;user id=his;data source=cc_opd_ord; persist security info=true;password=his1160"
         End Select
         Return OraStr
     End Function
