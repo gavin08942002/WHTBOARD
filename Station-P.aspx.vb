@@ -525,8 +525,8 @@ Partial Class Station
         Dim cmd1 As String = String.Format("SELECT * FROM WHTSCHED A, WHTSUBT B WHERE A.Hd_Empno = B.Hd_Empno(+) AND A.NS=B.NS(+) AND A.NS='{0}'  AND A.Bdate = to_date('{1}','YYYY/MM/DD HH24:MI:SS') AND B.Bdate(+) =A.Bdate   ", Wardcode, Nowdate)
         Dim DA1 As OleDbDataAdapter = New OleDbDataAdapter(cmd1, Conn1)
         DA1.Fill(DS, "SCHED")
-        'GridView1.DataSource = DS.Tables("SCHED")
-        'GridView1.DataBind()
+        GridView1.DataSource = DS.Tables("SCHED")
+        GridView1.DataBind()
         Conn1.Close()
         '建立最後班表輸出時的TABLE
         Dim Doctor_info As DataTable = New DataTable
