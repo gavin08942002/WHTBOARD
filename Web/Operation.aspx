@@ -62,6 +62,8 @@
                     var HospCode = $.url.param("HospCode");
                     var WardCode = $.url.param("WardCode");
                     var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmove/webform.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
+                    if (HospCode == '5')
+                    { to_nurses = "http://websrv2.hc.mmh.org.tw/ccNsmove/webform.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode }
                     var UserName = document.getElementById("User_Label").innerText;
                     window.open(to_nurses)
                 }
@@ -70,6 +72,8 @@
                     var HospCode = $.url.param("HospCode");
                     var WardCode = $.url.param("WardCode");
                     var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmoveoth/index.aspx "
+                    if (HospCode== '5')
+                    {to_nurses = ""}
                     var UserName = document.getElementById("User_Label").innerText;
                     if (UserName == "")
                     { alert("無操作者資料!!,\n請關閉目前網頁,重新登入急住醫令-護理,\n重新連結護理內白板") }

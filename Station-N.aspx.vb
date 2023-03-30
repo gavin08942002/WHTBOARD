@@ -1259,10 +1259,10 @@ Partial Class Station
 
 
     '############################################夜間值班醫師資料#####################################################
-    '====值班醫班資料
+    '====夜間值班醫班資料
     Public Sub BanList_NS_N(ByVal Hospcode As String, ByVal Wardcode As String, ByVal Bedcount As Integer, ByVal NSENG As String, ByVal Now_time As DateTime)
-        Dim Master As String = Get_Master(Hospcode, Wardcode)
-        Dim DUTY_LIST_Str As String = GET_DUTY_LIST(Hospcode, Wardcode)
+        Dim Master As String = Get_Master(Hospcode, Wardcode) '取得主責科別
+        Dim DUTY_LIST_Str As String = GET_DUTY_LIST(Hospcode, Wardcode) '取得護理站的值班醫師科別
 
         '建立最後輸出資料表
         Dim Info_Show As DataTable = New DataTable
@@ -1289,6 +1289,7 @@ Partial Class Station
 
         'GridView2.DataSource = MRD_TB
         'GridView2.DataBind()
+        '
         Dim MRD_TB As DataTable = BanList_NS_N_SQL(Hospcode, Wardcode, 14, NSENG, Now_time) '次專科ON CALL醫師資料
         ' 將次專科ON CALL 醫師資料放入最後輸出表()
         For i = 0 To MRD_TB.Rows.Count - 1
@@ -1371,8 +1372,8 @@ Partial Class Station
             Info_Show2.Rows.Add(add_info_show_rows)
         Next
         'show_doctor_NS_N(Info_Show, 28)
-        show_doctor_NS_N_1(Info_Show, 14, "2") '資料輸出
-        show_doctor_NS_N_1(Info_Show2, 14, "1")
+        show_doctor_NS_N_1(Info_Show, 14, "2") '照會醫師資料
+        show_doctor_NS_N_1(Info_Show2, 14, "1") '值班醫師資料
     End Sub
 
     '====ON CALL醫師資料SQL
@@ -1721,10 +1722,10 @@ Partial Class Station
         Next
 
         If ColNo = "1" Then
-            Doctor_Info_Label1.Text = Doctor_Info_show1
+            Doctor_Info_Label1.Text = Doctor_Info_show1 '顯示值班醫師班表
         End If
         If ColNo = "2" Then
-            Doctor_Info_Label2.Text = Doctor_Info_show1
+            Doctor_Info_Label2.Text = Doctor_Info_show1 '顯示照會醫師班表
         End If
 
 
@@ -1964,13 +1965,15 @@ Partial Class Station
         cmd5 &= String.Format(" AND DLC.hosp_use like '%{0}%'", Hospcode)
         cmd5 &= String.Format(" AND DLC.LOCATION = '{0}'", Wardcode)
         cmd5 &= ")"
-        cmd5 &= "LEFT JOIN PHSDB TEL ON (TEL.BDATE <= SYSDATE AND TEL.EDATE >= SYSDATE AND TEL.EMPNO = SCH.DRCODE)"
+        cmd5 &= " LEFT JOIN PHSDB TEL ON (TEL.BDATE <= SYSDATE AND TEL.EDATE >= SYSDATE AND TEL.EMPNO = SCH.DRCODE)"
         cmd5 &= " LEFT JOIN DR ON (DR.CODE = SCH.DRCODE)"
         cmd5 &= " INNER JOIN RESIDENT RSD ON (RSD.EMPNO = DR.CODE AND RSD.FDATE <= SYSDATE AND RSD.TDATE >=SYSDATE AND "
         cmd5 &= " RSD.DELETED = 'N' AND NOT NVL(RSD.EMPNO,'X') IN ('X') AND RSD.JOB IN ('實（見）習生','代訓') AND NVL(RSD.CLASS,'醫學') = '醫學')"
-        'cmd5 &= String.Format("INNER JOIN DRSCHLOC DLC ON ")
-        cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.START_TIME AND SCH.END_TIME   AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
-        'cmd5 &= " AND  SCH.SHIFT = DLC.SHIFT "
+        'cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.START_TIME AND SCH.END_TIME   AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        'cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.SCHDATE AND SCH.SCHDATE + 1 - INTERVAL '1' SECOND  AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        'cmd5 &= String.Format(" WHERE TRUNC(SYSDATE) =TRUNC(SCH.SCHDATE) AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        cmd5 &= String.Format(" WHERE   SCH.SCHDATE = To_Date('{0}','yyyy/MM/DD') AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{1}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Nowdate, Master)
+        ' cmd5 &= String.Format(" WHERE TRUNC(SCH.SCHDATE) = trunc(to_date('2023-01-10','YYYY/MM/DD HH24:MI:SS')) AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master) 'cmd5 &= " AND  SCH.SHIFT = DLC.SHIFT "
 
 
 
@@ -2351,7 +2354,7 @@ Partial Class Station
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         Dim Conn As OleDbConnection = New OleDbConnection
         Conn.ConnectionString = ConnStr
-        Dim cmd As String = String.Format("SELECT  * FROM MMH.Whtboard AL1 WHERE AL1.NS='{0}' AND seqno != 'xx'  and (empno not in ('mstr','day','duty','DEN') OR empno is  NULL) and grp is not null ORDER BY AL1.Seqno", Wardcode)
+        Dim cmd As String = String.Format("SELECT  * FROM MMH.Whtboard AL1 WHERE AL1.NS='{0}' AND seqno != 'xx'  and (empno not in ('mstr','day','duty','DEN','cons') OR empno is  NULL) and grp is not null ORDER BY AL1.Seqno", Wardcode)
         Dim DA As OleDbDataAdapter = New OleDbDataAdapter(cmd, Conn)
         Dim DS As New DataSet
         Dim ContactInfo As String = Nothing

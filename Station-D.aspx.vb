@@ -1317,12 +1317,12 @@ Partial Class Station
 
             Next
         End If
-
+        Dim VSIDX_LIST As New ArrayList
         '資料輸出$$$$$$$$$$$$$$$$$$$$$$$$$$
         If Doctor_info.Rows.Count > 28 Then
-            Show_Doctor_40(Doctor_info, 40)
+            Show_Doctor_40(Doctor_info, 40, VSIDX_LIST)
         Else
-            Show_Doctor_28(Doctor_info, 28)
+            Show_Doctor_28(Doctor_info, 28, VSIDX_LIST)
         End If
         'GridView1.DataSource = Doctor_info
         'GridView1.DataSource = DS.Tables("Doctor_name_list")
@@ -1347,6 +1347,9 @@ Partial Class Station
         Doctor_info.Columns.Add("HD_NAME")
         Doctor_info.Columns.Add("INT_EMPNO")
         Doctor_info.Columns.Add("INT_NAME")
+        Doctor_info.Columns.Add("AGENT_CODE")
+        Doctor_info.Columns.Add("AGENT")
+        Doctor_info.Columns.Add("AGENT_NAME")
         Doctor_info.Columns.Add("Bed_Qt", Type.GetType("System.Int16")) '將欄位宣告為Int,排序時才不會出錯
 
         Dim NS As String = Wardcode
@@ -1363,23 +1366,35 @@ Partial Class Station
         If BanList.Tables.Count > 0 Then
 
 
-            'GridView2.Caption = "白天醫師班表"
-            'GridView2.DataSource = BanList.Tables(0)
-            'GridView2.DataBind()
+            GridView2.Caption = "白天醫師班表"
+            GridView2.DataSource = BanList.Tables(0)
+            GridView2.DataBind()
 
 
-            '排班主治醫師陣列
+            '排班主治欄位列表
             Dim VS_List As ArrayList = New ArrayList
+            Dim VSIDX_LIST As ArrayList = New ArrayList
 
             For j = 0 To BanList.Tables(0).Rows.Count - 1
                 Dim vscode As String = BanList.Tables(0).Rows(j)("VSCODE").ToString
+                Dim IDX As String = BanList.Tables(0).Rows(j)("IDX").ToString
                 If Not (vscode = String.Empty) Then
+                    '主治醫師列表
+                    If IDX = "1" Then
+                        VSIDX_LIST.Add(vscode)
+                    End If
+                    '主治欄位列表
                     If Not (VS_List.Contains(vscode)) Then
                         VS_List.Add(vscode)
                     End If
                 End If
             Next
 
+            '主治醫師名單測試
+            ' For i = 0 To VSIDX_LIST.Count - 1
+            'Response.Write(VSIDX_LIST(i) + ",")
+            'Next
+            'Response.Write(VSIDX_LIST(0))
 
             For i = 0 To VS_List.Count - 1
                 Dim VSCODE As String = VS_List(i).ToString
@@ -1390,6 +1405,7 @@ Partial Class Station
                 Dim DT_RCount As Integer = DT_R.Count
                 Dim DT_INT() As DataRow = BanList.Tables(0).Select(String.Format("VSCODE = '{0}' AND REMARK like '%實習%' ", VSCODE))
                 Dim DT_INTCount As Integer = DT_INT.Count
+
                 Dim MAXcount As Integer = MAXCountC(DT_RCount, DT_INTCount)
 
                 For k As Integer = 0 To MAXcount - 1
@@ -1399,6 +1415,11 @@ Partial Class Station
                     Dim HD_NAME As String = ""
                     Dim INT_EMPNO As String = ""
                     Dim INT_NAME As String = ""
+                    Dim AGENT As String = ""
+                    Dim AGENTCODE As String = ""
+                    Dim AGENTNAME As String = ""
+                    Dim SCHDESC As String = ""
+
                     If k = 0 Then
                         AD_EMPNO = DT_VS(k)("VSCODE").ToString
                         AD_NAME = DT_VS(k)("VSNAME").ToString
@@ -1406,11 +1427,14 @@ Partial Class Station
                     If DT_RCount > k Then
                         HD_EMPNO = DT_R(k)("DR1").ToString
                         HD_NAME = Replace(DT_R(k)("DR1NAME").ToString, "x", "")
+                        AGENT = DT_R(k)("AGENT").ToString
+                        SCHDESC = DT_R(k)("SCHDESC").ToString
                     End If
-                    If DT_INTCount > k Then
-                        INT_EMPNO = DT_INT(k)("DR2").ToString
-                        INT_NAME = Replace(DT_INT(k)("DR2NAME").ToString, "x", "")
-                    End If
+                    'If DT_INTCount > k Then
+                    'INT_EMPNO = DT_INT(k)("DR2").ToString
+                    'INT_NAME = Replace(DT_INT(k)("DR2NAME").ToString, "x", "")
+                    'End If
+
                     Dim New_row1 As DataRow = Doctor_info.NewRow()
                     New_row1("AD_EMPNO") = AD_EMPNO
                     New_row1("AD_NAME") = AD_NAME
@@ -1418,19 +1442,21 @@ Partial Class Station
                     New_row1("HD_NAME") = HD_NAME
                     New_row1("INT_EMPNO") = INT_EMPNO
                     New_row1("INT_NAME") = INT_NAME
+                    New_row1("INT_EMPNO") = AGENT
+                    New_row1("INT_NAME") = SCHDESC
                     Doctor_info.Rows.Add(New_row1)
                 Next
 
             Next
 
-            ' GridView1.Caption = "醫師白天值班表-輸出格式"
-            ' GridView1.DataSource = Doctor_info
-            ' GridView1.DataBind()
+            'GridView1.Caption = "醫師白天值班表-輸出格式"
+            'GridView1.DataSource = Doctor_info
+            'GridView1.DataBind()
             '資料輸出$$$$$$$$$$$$$$$$$$$$$$$$$$
             If Doctor_info.Rows.Count > 28 Then
-                Show_Doctor_40(Doctor_info, 40)
+                Show_Doctor_40(Doctor_info, 40, VSIDX_LIST)
             Else
-                Show_Doctor_28(Doctor_info, 28)
+                Show_Doctor_28(Doctor_info, 28, VSIDX_LIST)
             End If
         End If
 
@@ -1484,7 +1510,7 @@ Partial Class Station
     End Function
 
     '====顯示醫師資料====
-    Public Sub Show_Doctor_28(ByVal doctor_info_sort As DataTable, ByVal Doctor_Limite As Integer)
+    Public Sub Show_Doctor_28(ByVal doctor_info_sort As DataTable, ByVal Doctor_Limite As Integer, ByVal VSIDX_LIST As ArrayList)
         Dim Doctor_Info_show1 As String = Nothing 'Doctor1醫生資料輸出第一列
         Dim Doctor_Info_show2 As String = Nothing 'Doctor2醫生資料輸出第二列
         Dim Doctor_Row_count As Integer = 0
@@ -1541,7 +1567,7 @@ Partial Class Station
         Doctor_Info_Label1.Text = Doctor_Info_show1
         Doctor_Info_Label2.Text = Doctor_Info_show2
     End Sub
-    Public Sub Show_Doctor_40(ByVal doctor_info_sort As DataTable, ByVal Doctor_Limite As Integer)
+    Public Sub Show_Doctor_40(ByVal doctor_info_sort As DataTable, ByVal Doctor_Limite As Integer, ByVal VSIDX_LIST As ArrayList)
         Dim Doctor_Info_show1 As String = Nothing 'Doctor1醫生資料輸出第一列
         Dim Doctor_Info_show2 As String = Nothing 'Doctor2醫生資料輸出第二列
         Dim Doctor_Row_count As Integer = 0
@@ -1831,13 +1857,15 @@ Partial Class Station
         cmd5 &= String.Format(" AND DLC.hosp_use like '%{0}%'", Hospcode)
         cmd5 &= String.Format(" AND DLC.LOCATION = '{0}'", Wardcode)
         cmd5 &= ")"
-        cmd5 &= "LEFT JOIN PHSDB TEL ON (TEL.BDATE <= SYSDATE AND TEL.EDATE >= SYSDATE AND TEL.EMPNO = SCH.DRCODE)"
+        cmd5 &= " LEFT JOIN PHSDB TEL ON (TEL.BDATE <= SYSDATE AND TEL.EDATE >= SYSDATE AND TEL.EMPNO = SCH.DRCODE)"
         cmd5 &= " LEFT JOIN DR ON (DR.CODE = SCH.DRCODE)"
         cmd5 &= " INNER JOIN RESIDENT RSD ON (RSD.EMPNO = DR.CODE AND RSD.FDATE <= SYSDATE AND RSD.TDATE >=SYSDATE AND "
         cmd5 &= " RSD.DELETED = 'N' AND NOT NVL(RSD.EMPNO,'X') IN ('X') AND RSD.JOB IN ('實（見）習生','代訓') AND NVL(RSD.CLASS,'醫學') = '醫學')"
-        'cmd5 &= String.Format("INNER JOIN DRSCHLOC DLC ON ")
-        cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.START_TIME AND SCH.END_TIME   AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
-        'cmd5 &= " AND  SCH.SHIFT = DLC.SHIFT "
+        'cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.START_TIME AND SCH.END_TIME   AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        'cmd5 &= String.Format(" WHERE SYSDATE BETWEEN SCH.SCHDATE AND SCH.SCHDATE + 1 - INTERVAL '1' SECOND  AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        'cmd5 &= String.Format(" WHERE TRUNC(SYSDATE) =TRUNC(SCH.SCHDATE) AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master)
+        cmd5 &= String.Format(" WHERE   SCH.SCHDATE = To_Date('{0}','yyyy/MM/DD') AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{1}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Nowdate, Master)
+        ' cmd5 &= String.Format(" WHERE TRUNC(SCH.SCHDATE) = trunc(to_date('2023-01-10','YYYY/MM/DD HH24:MI:SS')) AND SCH.SCH_type IN ('S','D') AND (SCH.MASTER = '{0}' OR SCH.DEPT = '{0}' ) AND SCH.status = 'Y' ", Master) 'cmd5 &= " AND  SCH.SHIFT = DLC.SHIFT "
 
 
 
@@ -2217,7 +2245,7 @@ Partial Class Station
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         Dim Conn As OleDbConnection = New OleDbConnection
         Conn.ConnectionString = ConnStr
-        Dim cmd As String = String.Format("SELECT  * FROM MMH.Whtboard AL1 WHERE AL1.NS='{0}' AND seqno != 'xx'  and (empno not in ('mstr','day','duty','DEN') OR empno is  NULL) and grp is not null ORDER BY AL1.Seqno", Wardcode)
+        Dim cmd As String = String.Format("SELECT  * FROM MMH.Whtboard AL1 WHERE AL1.NS='{0}' AND seqno != 'xx'  and (empno not in ('mstr','day','duty','DEN','cons') OR empno is  NULL) and grp is not null ORDER BY AL1.Seqno", Wardcode)
         Dim DA As OleDbDataAdapter = New OleDbDataAdapter(cmd, Conn)
         Dim DS As New DataSet
         Dim ContactInfo As String = Nothing

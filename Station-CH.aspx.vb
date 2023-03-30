@@ -738,7 +738,7 @@ Partial Class Station
         '台北護理站切換時間為2300,淡水切換時間為2400
 
         Select Case Hospcode
-            Case "1", "4"  '大夜交班時間為2300
+            Case "1", "4", "5"  '大夜交班時間為2300
                 If NOWT <= Get_TimeD(Hospcode, Wardcode) And Dancag = "N" Then
                     FromDate = Now_Time.AddDays(-1).ToString("yyyy/MM/dd 00:00:00")
                     ToDate = Now_Time.ToString("yyyy/MM/dd 00:00:00")
@@ -759,7 +759,8 @@ Partial Class Station
         Dim DS As New DataSet
         DA.Fill(DS, "NurseList") '護理人員資料
 
-
+        'GridView1.DataSource = DS.Tables("NurseList")
+        'GridView1.DataBind()
 
         'H班值班護士名單資料
         Dim H_cmd As String = String.Format("SELECT  DISTINCT (AL1.EMPNO), AL1.DEN, AL1.DUTY, AL1.XFIRE, AL1.NAME, AL1.BACKUP1 FROM MMH.NSASSIST AL1 WHERE AL1.NS='{0}' AND AL1.DEN='H' AND AL1.FDATE <=to_date('{2}','YYYY/MM/DD HH24:MI:SS') AND  AL1.TDATE > to_date('{3}','YYYY/MM/DD HH24:MI:SS')  AND AL1.EFFECT='Y'  ORDER BY AL1.DUTY", Wardcode, Dancag, Nowtime, Nowtime)
@@ -962,7 +963,7 @@ Partial Class Station
                     End If
                 Next
 
-            Case "4"    '新竹護理人員版本
+            Case "4", "5"    '新竹護理人員版本
                 Select Case NurseList.Rows.Count
                     Case Is <= 6 '新竹護理人員小於6的版本
                         For index = 0 To (NurseList.Rows.Count - 1)
@@ -1486,6 +1487,7 @@ Partial Class Station
     End Function
     '####################################################主程式###########################################################
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         Dim HospCode As String = Request.QueryString("Hospcode")
         Dim WardCode As String = Request.QueryString("WardCode")
         Dim Now_Time As DateTime = GET_Now_Time(HospCode)

@@ -53,14 +53,7 @@
                         var to_nurses = page + ".aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
                         self.location.href = to_nurses
                     }
-                    //動態護理連結
-                    function Link_To_k234() {
-                        var HospCode = $.url.param("HospCode");
-                        var WardCode = $.url.param("WardCode");
-                        var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmove/webform.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
-                        var UserName = document.getElementById("User_Label").innerText;
-                        window.open(to_nurses)
-                    }
+
                     //按日期查詢
                     function To_Date() {
                         var HospCode = $.url.param("HospCode");
@@ -70,11 +63,23 @@
                         self.location.href = to_pages
                     }
 
+                    //動態護理連結
+                    function Link_To_k234() {
+                        var HospCode = $.url.param("HospCode");
+                        var WardCode = $.url.param("WardCode");
+                        var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmove/webform.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode
+                        if (HospCode == '5')
+                        { to_nurses = "http://websrv2.hc.mmh.org.tw/ccNsmove/webform.aspx?HospCode=" + HospCode + "&WardCode=" + WardCode }
+                        var UserName = document.getElementById("User_Label").innerText;
+                        window.open(to_nurses)
+                    }
                     //其它動態連結
                     function Link_To_k234_oth() {
                         var HospCode = $.url.param("HospCode");
                         var WardCode = $.url.param("WardCode");
                         var to_nurses = "http://websrv2.hc.mmh.org.tw/Nsmoveoth/index.aspx "
+                        if (HospCode == '5')
+                        { to_nurses = "" }
                         var UserName = document.getElementById("User_Label").innerText;
                         if (UserName == "")
                         { alert("無操作者資料!!,\n請關閉目前網頁,重新登入急住醫令-護理,\n重新連結護理內白板") }
