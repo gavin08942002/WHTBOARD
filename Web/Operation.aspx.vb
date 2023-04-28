@@ -159,7 +159,8 @@ Partial Class Web_Default
             Dim sch_date As Date = DT_OP_SCH.Rows(i)("sch_opdt")
             Dim sch_opdt As String = String.Format("{0}/{1}", sch_date.Month.ToString, sch_date.Day.ToString)
             '預定報到時間
-            Dim sch_optm As String = DT_OP_SCH.Rows(i)("sch_optm")
+            Dim sch_optm As String = DT_OP_SCH.Rows(i)("sch_optm").ToString
+
             '醫生員編,姓名
             Dim dr As String = DT_OP_SCH.Rows(i)("sch_opdr").ToString & " <br>" & DT_OP_SCH.Rows(i)("Drname").ToString
             '術式
