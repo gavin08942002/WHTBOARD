@@ -67,19 +67,19 @@ Partial Class Station
                 ElseIf P_LIST.Contains(Wardcode) Then
                     URL = String.Format("station-P.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
                 End If
-
-
+                '台北洗腎室版本station-HD.aspx
+                If Wardcode = "HD" And ifkey = "Y" Then '時間測試
+                    URL = String.Format("station-HD.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
+                ElseIf Wardcode = "HD" Then
+                    URL = String.Format("station-HD.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+                End If
 
                 '淡水
             Case "2"
-
-
                 '台東
             Case "3"
                 '台東版本station-TT.aspx
                 URL = String.Format("station-TT.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
-
-
                 '新竹
             Case "4"
                 '新竹版本station-CH.aspx
@@ -88,6 +88,7 @@ Partial Class Station
                 Else
                     URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
                 End If
+                '新竹兒醫
             Case "5"
                 URL = String.Format("station-CH.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
 
