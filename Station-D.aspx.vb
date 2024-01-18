@@ -1366,9 +1366,9 @@ Partial Class Station
         If BanList.Tables.Count > 0 Then
 
 
-            GridView2.Caption = "白天醫師班表"
-            GridView2.DataSource = BanList.Tables(0)
-            GridView2.DataBind()
+            'GridView2.Caption = "白天醫師班表"
+            ' GridView2.DataSource = BanList.Tables(0)
+            ' GridView2.DataBind()
 
 
             '排班主治欄位列表

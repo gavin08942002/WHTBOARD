@@ -76,6 +76,12 @@ Partial Class Station
 
                 '淡水
             Case "2"
+                '淡水洗腎室版本station-HD.aspx
+                If Wardcode = "HD" And ifkey = "Y" Then '時間測試
+                    URL = String.Format("station-HD.aspx?Hospcode={0}&Wardcode={1}&time= {2}", collection.Get("Hospcode"), collection.Get("Wardcode"), Now_time.ToString("yyyy/MM/dd hh:mm:ss"))
+                ElseIf Wardcode = "HD" Then
+                    URL = String.Format("station-HD.aspx?Hospcode={0}&Wardcode={1}", collection.Get("Hospcode"), collection.Get("Wardcode"))
+                End If
                 '台東
             Case "3"
                 '台東版本station-TT.aspx

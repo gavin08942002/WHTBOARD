@@ -254,7 +254,7 @@ Partial Class Station
 
 
     End Function
-    '護理站名稱
+    '護理站名稱血液透析
     Public Function Show_Ward_Name(ByVal Hospcode As String, ByVal Wardcode As String, ByVal DanCag As String) As String
         Dim ConnStr As String = SELECT_ORACLE(Hospcode)
         Dim Conn As OleDbConnection = New OleDbConnection
@@ -263,16 +263,8 @@ Partial Class Station
         Dim DA As OleDbDataAdapter = New OleDbDataAdapter(cmd, Conn)
         Dim DS As New DataTable
         Dim ContactInfo As String = Nothing
-        DA.Fill(DS)
-        If DS.Rows.Count > 0 Then
-            If adjust_mobile() = "mobile" Then
-                Show_Ward_Name_Label.Text = String.Format("<input type =""button"" onclick=""history.go(-1)"" value=""回患者名單"" style=""font-size:20px;color:#000000;""></input><span class = Numeric-font><a href=""javascript: history.go(-1)""  style =""color:rgb(255,236,122); font-size:48px;line-height:60px;"">{0}-{1}</a></span>", DS.Rows(0)("nseng"), DanCag)
-            Else
-                Show_Ward_Name_Label.Text = String.Format("<span class = Numeric-font><a href=""javascript: history.go(-1)""  style =""color:rgb(255,236,122); font-size:60px;line-height:60px;"">{0}-{1}</a></span>", DS.Rows(0)("nseng"), DanCag)
-            End If
-
-            Return DS.Rows(0)("NSENG").ToString
-        End If
+        Show_Ward_Name_Label.Text = String.Format("<span class = Numeric-font><a href=""javascript: history.go(-1)""  style =""color:rgb(255,236,122); font-size:60px;line-height:60px;"">{0}</a></span>", "血液透析")
+        Return "血液透析"
     End Function
     '判斷字數變更字體大小
     Public Function Adjust_Font_size(ByVal Str As String, ByVal StrCount As Integer, ByVal FontSize As Integer)

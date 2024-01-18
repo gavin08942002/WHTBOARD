@@ -1265,6 +1265,7 @@ Partial Class Station
         Dim DUTY_LIST_Str As String = GET_DUTY_LIST(Hospcode, Wardcode) '取得護理站的值班醫師科別
 
         '建立最後輸出資料表
+        'on call,照會醫師
         Dim Info_Show As DataTable = New DataTable
         Info_Show.Columns.Add("DEPT")
         Info_Show.Columns.Add("CNAME1")
@@ -1274,7 +1275,7 @@ Partial Class Station
         Info_Show.Columns.Add("MARSTER")
         Info_Show.Columns.Add("hold1")
         Info_Show.Columns.Add("hosd2")
-
+        '值班醫師
         Dim Info_Show2 As DataTable = New DataTable
         Info_Show2.Columns.Add("DEPT")
         Info_Show2.Columns.Add("CNAME1")
@@ -1424,7 +1425,7 @@ Partial Class Station
         cmd &= " and  (INPDRSCH.URGENT = '住院' OR INPDRSCH.URGENT is NULL)	 "
         cmd &= " and INPDRSCH.SCH_TYPE = 'O' and INPDRSCH.DRCODE <> 'no' "
         cmd &= String.Format(" and INPDRSCH.SCHDATE = To_Date('{0}','yyyy/MM/DD') ", Nowdate)
-        'cmd &= String.Format(" and     INPDRSCH.HOSPID = '{0}'", Hospcode)
+
         cmd &= String.Format(" and     INPDRSCH.HOSPID = '{0}'", Hospcode)
         cmd &= " and     INPDRSCH.SHIFT = 'N' "
         cmd &= DUTY_LIST
@@ -1493,7 +1494,8 @@ Partial Class Station
         cmd &= " from  inpdrsch A , dr_his B , dept C , drschloc D, PHSDB E"
         cmd &= " where A.drcode = B.code and C.code = B.dept  "
         cmd &= " and  A.shift = D.shift  and A.sch_type = 'S'  "
-        cmd &= " and D.dept = A.master  and E.EMPNO = A.drcode "
+        cmd &= " and D.dept = A.master  "
+        cmd &= " and E.EMPNO(+) = A.drcode and a.schdate between e.bdate(+) and e.edate(+) "
         cmd &= String.Format("and A.HospID = '{0}' ", Hospcode)
         cmd &= String.Format(" and trunc ( to_date( '{0}' , 'yyyy/mm/dd' )) >= D.bdate   ", Nowdate)
         cmd &= String.Format("and  trunc ( to_date( '{0}' , 'yyyy/mm/dd' )) <= D.Edate  ", Nowdate)
@@ -1501,6 +1503,9 @@ Partial Class Station
         cmd &= String.Format(" and A.schdate = to_date( '{0}' , 'yyyy/mm/dd' )   ", Nowdate)
         cmd &= String.Format(" and b.bdate <= to_date( '{0}' , 'yyyy/mm/dd' )", Nowdate)
         cmd &= String.Format(" and b.edate >= to_date( '{0}' , 'yyyy/mm/dd' ) ", Nowdate)
+        cmd &= String.Format(" and A.status = 'Y'")
+        cmd &= String.Format(" and INSTR(A.othhospid,'{0}') > 0", Hospcode)
+
         'cmd &= " and B.CLASS <>'XX'" '排除INT和PGY
         cmd &= DUTY_LIST
         'cmd &= " and  a.MASTER in ('GO','IM','PD','SG') "
@@ -1509,7 +1514,7 @@ Partial Class Station
         DA.Fill(DS, "ADD")
         'GridView3.DataSource = DS.Tables("ADD")
         'GridView3.DataBind()
-
+        'Response.Write(cmd)
         Return DS.Tables("add")
     End Function
     '====其他科值班醫師SQL
